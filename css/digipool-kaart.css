@@ -17,8 +17,8 @@ digipool-kaart svg {
 }
 
 .digipool-kaart__land path {
-  fill: var(--primitives-color-mintgroen-300);
-  stroke: var(--primitives-color-donkerblauw-800);
+  fill: #76D2B6;
+  stroke: #154273;
   stroke-width: 4;
   stroke-linejoin: round;
 }

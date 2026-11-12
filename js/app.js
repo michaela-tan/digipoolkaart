@@ -82,8 +82,7 @@
 
   // ── Knop naar de filters (alleen zichtbaar als de filters in een sheet zitten) ──
 
-  $('#filters-knop').addEventListener('click', () => sectie.show());
-  $('#filters-menu-item').addEventListener('select', () => sectie.show());
+  $('#filters-openen').addEventListener('click', () => sectie.show());
 
   // ── Filteren ─────────────────────────────────────────────────────────────────
 

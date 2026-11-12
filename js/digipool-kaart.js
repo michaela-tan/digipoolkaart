@@ -47,6 +47,27 @@
       this._svg.append(land, this._markeringen);
       this.append(this._svg);
       this._teken();
+
+      // Centreer de kaart in het browservenster in plaats van in de kolom ernaast.
+      const centreer = () => this._centreer();
+      this._observer = new ResizeObserver(centreer);
+      this._observer.observe(this);
+      window.addEventListener('resize', centreer);
+      requestAnimationFrame(centreer);
+    }
+
+    // Schuift de getekende kaart naar het midden van het venster, maar nooit
+    // buiten het eigen vak: dan zou hij over de filters heen vallen.
+    _centreer() {
+      if (!this._svg) return;
+      const vak = this.getBoundingClientRect();
+      const [, , vbBreedte, vbHoogte] = window.KAART_NEDERLAND.viewBox;
+      const hoogte = this._svg.getBoundingClientRect().height;
+      const getekend = Math.min(vak.width, hoogte * (vbBreedte / vbHoogte));
+      const speling = (vak.width - getekend) / 2;
+      const verschuiving = document.documentElement.clientWidth / 2 - (vak.left + vak.width / 2);
+      const x = Math.max(-speling, Math.min(speling, verschuiving));
+      this._svg.style.transform = Math.abs(x) < 1 ? '' : `translateX(${x.toFixed(1)}px)`;
     }
 
     set pools(waarde) {

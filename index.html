@@ -15,15 +15,30 @@
   <link rel="stylesheet" href="css/digipool-kaart.css">
 
   <style>
+    /* Eigen achtergrondkleur voor de getinte achtergrond (nldd-shell background="tinted").
+       Let op: dit is een variabele van het designsysteem, controleer hem bij een update. */
+    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-shell heeft geen attribuut voor een eigen achtergrondkleur */
+    :root {
+      --semantics-surfaces-tinted-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-50));
+      /* Het filtervak (nldd-box background="accent-tinted") */
+      --semantics-surfaces-accent-tinted-background-color: light-dark(#D9EBF7, var(--primitives-color-donkerblauw-75));
+    }
+
     /* Uit het NLDD-patroon "Filteren": de knop naar de filters verschijnt alleen als de filters in een sheet zitten. */
     /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
-    #filters-openen {
+    #filters-openen,
+    #filters-openen-ruimte {
       display: none;
     }
 
     /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
     nldd-sidebar-section[collapsed] #filters-openen:not([hidden]) {
       display: inline-flex;
+    }
+
+    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
+    nldd-sidebar-section[collapsed] #filters-openen-ruimte {
+      display: block;
     }
 
     /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
@@ -37,19 +52,24 @@
     <nldd-page>
       <nldd-sidebar-section
         width="full"
-        sidebar-label="Filters"
+        sidebar-label="Zoeken en filters"
         translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
       >
-        <nldd-title
-          slot="header"
-          text="Ontdek de pools voor flexibele inzet digitaliseringspersoneel"
-          supporting-text="Klik op een locatie op de kaart voor meer informatie, of maak gebruik van de filters."
-          heading-level="1"
-          size="display-3"
-        ></nldd-title>
+        <nldd-container slot="header">
+          <nldd-title
+            text="Ontdek de pools voor flexibele inzet digitaliseringspersoneel"
+            heading-level="1"
+            size="display-4"
+          ></nldd-title>
+          <nldd-spacer size="4"></nldd-spacer>
+          <nldd-text size="sm" color="secondary">
+            Klik op een locatie op de kaart voor meer informatie, of maak gebruik van de filters.
+          </nldd-text>
+        </nldd-container>
 
         <!-- Filters: breed een kolom links, smal een sheet -->
-        <nldd-container slot="sidebar" padding="16" padding-bottom="8">
+        <nldd-box slot="sidebar" background="accent-tinted">
+        <nldd-container padding="16" padding-bottom="8">
           <nldd-skip-link
             id="filters-overslaan"
             text="Sla filters over"
@@ -57,7 +77,21 @@
           ></nldd-skip-link>
 
           <nldd-title
-            size="display-5"
+            size="display-6"
+            text="Zoeken"
+            heading-level="2"
+          ></nldd-title>
+          <nldd-spacer size="8"></nldd-spacer>
+          <nldd-search-field
+            id="zoeken"
+            size="sm"
+            placeholder="Naam, organisatie of plaats"
+          ></nldd-search-field>
+
+          <nldd-spacer size="24"></nldd-spacer>
+
+          <nldd-title
+            size="display-6"
             text="Voor welke organisaties?"
             heading-level="2"
           ></nldd-title>
@@ -69,7 +103,7 @@
           <nldd-spacer size="24"></nldd-spacer>
 
           <nldd-title
-            size="display-5"
+            size="display-6"
             text="Vakgebied"
             heading-level="2"
           ></nldd-title>
@@ -77,45 +111,21 @@
           <nldd-container id="filter-vakgebieden" layout="wrap" gap="8">
             <!-- gevuld door js/app.js -->
           </nldd-container>
+
+          <nldd-spacer size="16"></nldd-spacer>
+          <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
         </nldd-container>
+        </nldd-box>
 
-        <!-- Zoeken, en de knop naar de filters als die in een sheet zitten -->
-        <nldd-toolbar accessible-label="Zoeken en filteren">
-          <nldd-toolbar-item
-            slot="start"
-            min-width="240px"
-            width="100%"
-            max-width="560px"
-          >
-            <nldd-search-field
-              id="zoeken"
-              placeholder="Zoek op naam, organisatie of plaats"
-            ></nldd-search-field>
-            <nldd-menu-item
-              slot="overflow"
-              icon="search"
-              text="Zoeken"
-            ></nldd-menu-item>
-          </nldd-toolbar-item>
-
-          <nldd-toolbar-item id="filters-openen" slot="end">
-            <nldd-button
-              id="filters-knop"
-              appearance="secondary"
-              start-icon="filter"
-              text="Filters"
-            ></nldd-button>
-            <nldd-menu-item
-              id="filters-menu-item"
-              slot="overflow"
-              icon="filter"
-              text="Filters"
-            ></nldd-menu-item>
-          </nldd-toolbar-item>
-        </nldd-toolbar>
+        <!-- De knop naar zoeken en filters, alleen zichtbaar als die in een sheet zitten -->
+        <nldd-button
+          id="filters-openen"
+          appearance="secondary"
+          start-icon="filter"
+          text="Zoeken en filters"
+        ></nldd-button>
 
         <!-- Actieve filters: één token per waarde, elk is zijn eigen weg terug -->
-        <nldd-spacer id="actieve-filters-ruimte" size="16" hidden></nldd-spacer>
         <nldd-container
           id="actieve-filters"
           layout="wrap"
@@ -123,10 +133,9 @@
           vertical-alignment="center"
           hidden
         ></nldd-container>
+        <nldd-spacer id="actieve-filters-ruimte" size="16" hidden></nldd-spacer>
 
-        <nldd-spacer size="16"></nldd-spacer>
-        <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
-        <nldd-spacer size="8"></nldd-spacer>
+        <nldd-spacer id="filters-openen-ruimte" size="16"></nldd-spacer>
 
         <!-- De kaart -->
         <digipool-kaart id="kaart"></digipool-kaart>
