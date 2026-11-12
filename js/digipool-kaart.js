@@ -8,6 +8,7 @@
 // API
 //   kaart.pools = [...]      de pools die nu getoond worden
 //   event 'locatie-kies'     detail: { plaats, pools } bij klik of Enter/spatie
+//   attribuut ontwijk="sel"  de kaart houdt minstens 24px afstand rechts van dat element
 
 (function () {
   const SVG = 'http://www.w3.org/2000/svg';
@@ -66,7 +67,16 @@
       const getekend = Math.min(vak.width, hoogte * (vbBreedte / vbHoogte));
       const speling = (vak.width - getekend) / 2;
       const verschuiving = document.documentElement.clientWidth / 2 - (vak.left + vak.width / 2);
-      const x = Math.max(-speling, Math.min(speling, verschuiving));
+      let x = Math.max(-speling, Math.min(speling, verschuiving));
+
+      // Niet tegen een element links ervan aan, zoals het filterpaneel.
+      const obstakel = this.getAttribute('ontwijk') && document.querySelector(this.getAttribute('ontwijk'));
+      if (obstakel) {
+        const minLinks = obstakel.getBoundingClientRect().right + 24;
+        const links = vak.left + speling + x;
+        if (links < minLinks) x = Math.min(speling, x + (minLinks - links));
+      }
+
       this._svg.style.transform = Math.abs(x) < 1 ? '' : `translateX(${x.toFixed(1)}px)`;
     }
 

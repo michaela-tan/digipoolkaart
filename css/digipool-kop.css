@@ -1,0 +1,55 @@
+/*
+ * <digipool-kop>: het donkerblauwe vlak met de titel en subtitel, bovenin het filtervak.
+ * Een eigen element (geen nldd-*): het designsysteem heeft geen component dat een
+ * donkerblauw vlak tekent. De titel en tekst erin zijn gewone NLDD-componenten met
+ * color="inherit", zodat ze de witte tekstkleur van dit vlak overnemen.
+ */
+
+digipool-kop {
+  display: block;
+  background-color: #004378;
+  color: #FFFFFF;
+  /* Dezelfde ronde hoeken als de nldd-box eromheen, alleen aan de bovenkant. */
+  border-start-start-radius: var(--semantics-surfaces-corner-radius);
+  border-start-end-radius: var(--semantics-surfaces-corner-radius);
+}
+
+@media (forced-colors: active) {
+  digipool-kop {
+    background-color: Canvas;
+    color: CanvasText;
+    border-block-end: 1px solid CanvasText;
+  }
+}
+
+/*
+ * <digipool-paneel>: houdt het vak met kop en filters op een vaste breedte naast de kaart.
+ * De kolom van nldd-one-third-two-thirds-section is een derde van de pagina; dit paneel
+ * blijft daarbinnen maximaal 380px breed. Onder 800px (50rem) staan de kolommen onder
+ * elkaar en neemt het paneel de volle breedte.
+ */
+digipool-paneel {
+  display: block;
+}
+
+@media (min-width: 50rem) {
+  digipool-paneel {
+    max-inline-size: 380px;
+  }
+}
+
+/* Vanaf 1008px nooit smaller dan 320px, de breedte van de oorspronkelijke filterkolom. */
+@media (min-width: 63rem) {
+  digipool-paneel {
+    min-inline-size: 320px;
+  }
+}
+
+/*
+ * Invoervelden in het paneel (de zoekbalk) krijgen de achtergrondkleur van het paneel
+ * in plaats van wit. Alleen binnen het paneel; de rand van het veld blijft zichtbaar.
+ * Let op: dit is een variabele van het designsysteem, controleer hem bij een update.
+ */
+digipool-paneel {
+  --semantics-input-fields-background-color: var(--semantics-surfaces-accent-tinted-background-color);
+}

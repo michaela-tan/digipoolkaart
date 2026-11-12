@@ -20,7 +20,6 @@
   const zoeken = $('#zoeken');
   const strip = $('#actieve-filters');
   const stripRuimte = $('#actieve-filters-ruimte');
-  const sectie = $('nldd-sidebar-section');
   const sheet = $('#details');
   const sheetTitel = $('#details-titel');
   const sheetInhoud = $('#details-inhoud');
@@ -79,10 +78,6 @@
   }
   zoeken.addEventListener('input', opZoeken);
   zoeken.addEventListener('search', opZoeken);
-
-  // ── Knop naar de filters (alleen zichtbaar als de filters in een sheet zitten) ──
-
-  $('#filters-openen').addEventListener('click', () => sectie.show());
 
   // ── Filteren ─────────────────────────────────────────────────────────────────
 

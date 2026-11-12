@@ -13,6 +13,8 @@
 
   <!-- Eigen component: de kaart -->
   <link rel="stylesheet" href="css/digipool-kaart.css">
+  <!-- Eigen component: de blauwe kop boven de filters -->
+  <link rel="stylesheet" href="css/digipool-kop.css">
 
   <style>
     /* Eigen achtergrondkleur voor de getinte achtergrond (nldd-shell background="tinted").
@@ -23,52 +25,30 @@
       /* Het filtervak (nldd-box background="accent-tinted") */
       --semantics-surfaces-accent-tinted-background-color: light-dark(#D9EBF7, var(--primitives-color-donkerblauw-75));
     }
-
-    /* Uit het NLDD-patroon "Filteren": de knop naar de filters verschijnt alleen als de filters in een sheet zitten. */
-    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
-    #filters-openen,
-    #filters-openen-ruimte {
-      display: none;
-    }
-
-    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
-    nldd-sidebar-section[collapsed] #filters-openen:not([hidden]) {
-      display: inline-flex;
-    }
-
-    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
-    nldd-sidebar-section[collapsed] #filters-openen-ruimte {
-      display: block;
-    }
-
-    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
-    nldd-sidebar-section[collapsed] #filters-overslaan {
-      display: none;
-    }
   </style>
 </head>
 <body>
   <nldd-shell background="tinted">
     <nldd-page>
-      <nldd-sidebar-section
-        width="full"
-        sidebar-label="Zoeken en filters"
-        translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
-      >
-        <nldd-container slot="header">
-          <nldd-title
-            text="Ontdek de pools voor flexibele inzet digitaliseringspersoneel"
-            heading-level="1"
-            size="display-4"
-          ></nldd-title>
-          <nldd-spacer size="4"></nldd-spacer>
-          <nldd-text size="sm" color="secondary">
-            Klik op een locatie op de kaart voor meer informatie, of maak gebruik van de filters.
-          </nldd-text>
-        </nldd-container>
-
-        <!-- Filters: breed een kolom links, smal een sheet -->
-        <nldd-box slot="sidebar" background="accent-tinted">
+      <!-- Links een derde voor kop en filters, rechts twee derde voor de kaart. Onder 800px onder elkaar. -->
+      <nldd-one-third-two-thirds-section width="full">
+        <!-- Kop en filters; digipool-paneel begrenst de breedte (zie css/digipool-kop.css) -->
+        <digipool-paneel slot="left">
+        <nldd-box background="accent-tinted">
+        <digipool-kop>
+          <nldd-container padding="24" padding-bottom="20">
+            <nldd-title
+              text="Ontdek de pools voor flexibele inzet digitaliseringspersoneel"
+              heading-level="1"
+              size="display-5"
+              color="inherit"
+            ></nldd-title>
+            <nldd-spacer size="8"></nldd-spacer>
+            <nldd-text size="sm" color="inherit">
+              Klik op een locatie op de kaart voor meer informatie, of maak gebruik van de filters.
+            </nldd-text>
+          </nldd-container>
+        </digipool-kop>
         <nldd-container padding="16" padding-bottom="8">
           <nldd-skip-link
             id="filters-overslaan"
@@ -116,14 +96,7 @@
           <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
         </nldd-container>
         </nldd-box>
-
-        <!-- De knop naar zoeken en filters, alleen zichtbaar als die in een sheet zitten -->
-        <nldd-button
-          id="filters-openen"
-          appearance="secondary"
-          start-icon="filter"
-          text="Zoeken en filters"
-        ></nldd-button>
+        </digipool-paneel>
 
         <!-- Actieve filters: één token per waarde, elk is zijn eigen weg terug -->
         <nldd-container
@@ -135,10 +108,8 @@
         ></nldd-container>
         <nldd-spacer id="actieve-filters-ruimte" size="16" hidden></nldd-spacer>
 
-        <nldd-spacer id="filters-openen-ruimte" size="16"></nldd-spacer>
-
         <!-- De kaart -->
-        <digipool-kaart id="kaart"></digipool-kaart>
+        <digipool-kaart id="kaart" ontwijk="digipool-paneel"></digipool-kaart>
 
         <nldd-spacer size="32"></nldd-spacer>
 
@@ -160,7 +131,7 @@
           Kaart: provinciegrenzen van het CBS via PDOK (CC BY 4.0), vereenvoudigd door
           <a href="https://github.com/cartomap/nl">cartomap/nl</a>.
         </nldd-text>
-      </nldd-sidebar-section>
+      </nldd-one-third-two-thirds-section>
     </nldd-page>
   </nldd-shell>
 
