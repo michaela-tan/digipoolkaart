@@ -53,3 +53,42 @@ digipool-paneel {
 digipool-paneel {
   --semantics-input-fields-background-color: var(--semantics-surfaces-accent-tinted-background-color);
 }
+
+/*
+ * Filterlabels (nldd-toggle-button, appearance "neutral-tinted") in de kleuren van het ontwerp:
+ * lichtmint vlak, mintgroene rand, donkerblauwe tekst. Aangezet: donkerblauw vlak met witte tekst,
+ * zodat goed te zien is welke filters aanstaan. Alleen binnen het paneel.
+ * In donkere modus vallen ze terug op mintgroene tinten uit het designsysteem.
+ * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.
+ */
+digipool-paneel {
+  /* Uit */
+  --semantics-buttons-neutral-tinted-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-100));
+  --semantics-buttons-neutral-tinted-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-buttons-neutral-tinted-highlight-border-color: light-dark(#76D2B6, var(--primitives-color-mintgroen-400));
+  --semantics-buttons-neutral-tinted-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
+  --semantics-buttons-neutral-tinted-is-hovered-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-buttons-neutral-tinted-is-hovered-highlight-border-color: light-dark(#76D2B6, var(--primitives-color-mintgroen-400));
+  --semantics-buttons-neutral-tinted-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
+  --semantics-buttons-neutral-tinted-is-active-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-buttons-neutral-tinted-is-active-highlight-border-color: light-dark(#76D2B6, var(--primitives-color-mintgroen-400));
+
+  /* Aan */
+  --semantics-buttons-neutral-tinted-is-selected-background-color: light-dark(#003660, var(--primitives-color-mintgroen-700));
+  --semantics-buttons-neutral-tinted-is-selected-content-color: light-dark(#FFFFFF, var(--primitives-color-mintgroen-0));
+  --semantics-buttons-neutral-tinted-is-selected-highlight-border-color: light-dark(#003660, var(--primitives-color-mintgroen-700));
+  --semantics-buttons-neutral-tinted-is-selected-is-hovered-background-color: light-dark(#154273, var(--primitives-color-mintgroen-650));
+  --semantics-buttons-neutral-tinted-is-selected-is-hovered-content-color: light-dark(#FFFFFF, var(--primitives-color-mintgroen-0));
+  --semantics-buttons-neutral-tinted-is-selected-is-hovered-highlight-border-color: light-dark(#154273, var(--primitives-color-mintgroen-650));
+  --semantics-buttons-neutral-tinted-is-selected-is-active-background-color: light-dark(#002A4D, var(--primitives-color-mintgroen-750));
+  --semantics-buttons-neutral-tinted-is-selected-is-active-content-color: light-dark(#FFFFFF, var(--primitives-color-mintgroen-0));
+  --semantics-buttons-neutral-tinted-is-selected-is-active-highlight-border-color: light-dark(#002A4D, var(--primitives-color-mintgroen-750));
+}
+
+/*
+ * Tekstkleur van het paneel: donkerblauw. De kopjes (nldd-title color="inherit") nemen deze
+ * kleur over; de witte kop (digipool-kop) zet zijn eigen kleur. In donkere modus licht.
+ */
+digipool-paneel {
+  color: light-dark(#154273, var(--primitives-color-donkerblauw-900));
+}
