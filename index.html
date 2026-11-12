@@ -1,10 +1,180 @@
 <!DOCTYPE html>
-<html>
-<title>HTML Tutorial</title>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digipoolkaart – pools voor flexibele inzet digitaliseringspersoneel</title>
+  <meta name="description" content="Ontdek de pools voor flexibele inzet van digitaliseringspersoneel bij de overheid.">
+
+  <!-- NLDD Designsysteem: stijlen (tokens + RijksSans) en de autoloader die elk nldd-* component laadt zodra het op de pagina staat. -->
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/npm/@nldd/design-system@0.22.0/dist/favicon.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nldd/design-system@0.22.0/dist/css/global.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@nldd/design-system@0.22.0/dist/cdn/autoloader.js"></script>
+
+  <!-- Eigen component: de kaart -->
+  <link rel="stylesheet" href="css/digipool-kaart.css">
+
+  <style>
+    /* Uit het NLDD-patroon "Filteren": de knop naar de filters verschijnt alleen als de filters in een sheet zitten. */
+    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
+    #filters-openen {
+      display: none;
+    }
+
+    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
+    nldd-sidebar-section[collapsed] #filters-openen:not([hidden]) {
+      display: inline-flex;
+    }
+
+    /* nldd-lint-disable-next-line stylesheet-no-own -- nldd-sidebar-section kan een knop nog niet alleen in de ingeklapte stand tonen */
+    nldd-sidebar-section[collapsed] #filters-overslaan {
+      display: none;
+    }
+  </style>
+</head>
 <body>
+  <nldd-shell background="tinted">
+    <nldd-page>
+      <nldd-sidebar-section
+        width="full"
+        sidebar-label="Filters"
+        translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
+      >
+        <nldd-title
+          slot="header"
+          text="Ontdek de pools voor flexibele inzet digitaliseringspersoneel"
+          supporting-text="Klik op een locatie op de kaart voor meer informatie, of maak gebruik van de filters."
+          heading-level="1"
+          size="display-3"
+        ></nldd-title>
 
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
+        <!-- Filters: breed een kolom links, smal een sheet -->
+        <nldd-container slot="sidebar" padding="16" padding-bottom="8">
+          <nldd-skip-link
+            id="filters-overslaan"
+            text="Sla filters over"
+            href="#resultaten"
+          ></nldd-skip-link>
 
+          <nldd-title
+            size="display-5"
+            text="Voor welke organisaties?"
+            heading-level="2"
+          ></nldd-title>
+          <nldd-spacer size="8"></nldd-spacer>
+          <nldd-container id="filter-organisaties" layout="wrap" gap="8">
+            <!-- gevuld door js/app.js -->
+          </nldd-container>
+
+          <nldd-spacer size="24"></nldd-spacer>
+
+          <nldd-title
+            size="display-5"
+            text="Vakgebied"
+            heading-level="2"
+          ></nldd-title>
+          <nldd-spacer size="8"></nldd-spacer>
+          <nldd-container id="filter-vakgebieden" layout="wrap" gap="8">
+            <!-- gevuld door js/app.js -->
+          </nldd-container>
+        </nldd-container>
+
+        <!-- Zoeken, en de knop naar de filters als die in een sheet zitten -->
+        <nldd-toolbar accessible-label="Zoeken en filteren">
+          <nldd-toolbar-item
+            slot="start"
+            min-width="240px"
+            width="100%"
+            max-width="560px"
+          >
+            <nldd-search-field
+              id="zoeken"
+              placeholder="Zoek op naam, organisatie of plaats"
+            ></nldd-search-field>
+            <nldd-menu-item
+              slot="overflow"
+              icon="search"
+              text="Zoeken"
+            ></nldd-menu-item>
+          </nldd-toolbar-item>
+
+          <nldd-toolbar-item id="filters-openen" slot="end">
+            <nldd-button
+              id="filters-knop"
+              appearance="secondary"
+              start-icon="filter"
+              text="Filters"
+            ></nldd-button>
+            <nldd-menu-item
+              id="filters-menu-item"
+              slot="overflow"
+              icon="filter"
+              text="Filters"
+            ></nldd-menu-item>
+          </nldd-toolbar-item>
+        </nldd-toolbar>
+
+        <!-- Actieve filters: één token per waarde, elk is zijn eigen weg terug -->
+        <nldd-spacer id="actieve-filters-ruimte" size="16" hidden></nldd-spacer>
+        <nldd-container
+          id="actieve-filters"
+          layout="wrap"
+          gap="8"
+          vertical-alignment="center"
+          hidden
+        ></nldd-container>
+
+        <nldd-spacer size="16"></nldd-spacer>
+        <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
+        <nldd-spacer size="8"></nldd-spacer>
+
+        <!-- De kaart -->
+        <digipool-kaart id="kaart"></digipool-kaart>
+
+        <nldd-spacer size="32"></nldd-spacer>
+
+        <!-- Dezelfde pools als lijst: de toegankelijke weg naast de kaart -->
+        <nldd-title text="Alle pools" heading-level="2" size="display-4"></nldd-title>
+        <nldd-spacer size="8"></nldd-spacer>
+        <nldd-list id="resultaten" appearance="box-base" accessible-label="Pools">
+          <nldd-inline-dialog
+            slot="no-results"
+            icon="magnifier"
+            text="Geen pools gevonden"
+            supporting-text="Pas je zoekopdracht of filters aan."
+          ></nldd-inline-dialog>
+          <!-- gevuld door js/app.js -->
+        </nldd-list>
+
+        <nldd-spacer size="16"></nldd-spacer>
+        <nldd-text size="xs" color="secondary">
+          Kaart: provinciegrenzen van het CBS via PDOK (CC BY 4.0), vereenvoudigd door
+          <a href="https://github.com/cartomap/nl">cartomap/nl</a>.
+        </nldd-text>
+      </nldd-sidebar-section>
+    </nldd-page>
+  </nldd-shell>
+
+  <!-- Details van een locatie of pool. Staat op het hoogste niveau en blijft in de DOM. -->
+  <nldd-sheet id="details" placement="right" width="480px">
+    <nldd-page>
+      <nldd-top-title-bar
+        id="details-titel"
+        slot="header"
+        text="Pools"
+        heading-level="2"
+        dismiss-text="Sluit"
+      ></nldd-top-title-bar>
+      <nldd-simple-section>
+        <nldd-container id="details-inhoud"></nldd-container>
+      </nldd-simple-section>
+    </nldd-page>
+  </nldd-sheet>
+
+  <!-- Gewone scripts (geen modules), zodat de pagina ook direct vanaf schijf werkt. -->
+  <script src="js/kaart-nederland.js"></script>
+  <script src="js/pools.js"></script>
+  <script src="js/digipool-kaart.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

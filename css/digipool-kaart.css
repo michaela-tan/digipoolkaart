@@ -1,0 +1,69 @@
+/*
+ * Stijl van het eigen component <digipool-kaart>.
+ * Alleen dit eigen component krijgt eigen CSS; de nldd-* componenten niet.
+ * Kleuren komen uit de --primitives-* van het designsysteem, zodat licht en donker meebewegen.
+ */
+
+digipool-kaart {
+  display: block;
+  inline-size: 100%;
+}
+
+digipool-kaart svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  max-block-size: 80dvh;
+}
+
+.digipool-kaart__land path {
+  fill: var(--primitives-color-mintgroen-300);
+  stroke: var(--primitives-color-donkerblauw-800);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.digipool-kaart__markering {
+  cursor: pointer;
+  outline: none;
+}
+
+.digipool-kaart__speld {
+  fill: var(--primitives-color-donkerblauw-800);
+  stroke: var(--primitives-color-donkerblauw-0);
+  stroke-width: 1.5;
+}
+
+.digipool-kaart__kern {
+  fill: var(--primitives-color-hemelblauw-300);
+}
+
+.digipool-kaart__aantal-bol {
+  fill: var(--primitives-color-donkerblauw-100);
+  stroke: var(--primitives-color-donkerblauw-800);
+  stroke-width: 1.5;
+}
+
+.digipool-kaart__aantal {
+  fill: var(--primitives-color-donkerblauw-900);
+  font: 700 13px/1 var(--primitives-font-family-sans-serif, sans-serif);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.digipool-kaart__markering:hover .digipool-kaart__speld {
+  fill: var(--primitives-color-lintblauw-600);
+}
+
+/* Zichtbare focus voor toetsenbordgebruikers. */
+.digipool-kaart__markering:focus-visible .digipool-kaart__speld,
+.digipool-kaart__markering:focus-visible .digipool-kaart__aantal-bol {
+  stroke: var(--primitives-color-lintblauw-600);
+  stroke-width: 4;
+}
+
+@media (forced-colors: active) {
+  .digipool-kaart__land path { fill: Canvas; stroke: CanvasText; }
+  .digipool-kaart__speld { fill: LinkText; stroke: Canvas; }
+  .digipool-kaart__markering:focus-visible .digipool-kaart__speld { stroke: Highlight; }
+}
