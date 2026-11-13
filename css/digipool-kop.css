@@ -114,11 +114,11 @@ digipool-venster {
 }
 
 /*
- * Scheidingslijnen (nldd-divider) in het detailvenster: donkerblauw en 2px dik zoals in het ontwerp,
+ * Scheidingslijnen (nldd-divider) in het detailvenster: lichtblauw en 2px dik,
  * in plaats van lichtgrijs, dat op de lichtblauwe achtergrond bijna wegvalt.
  * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.
  */
 digipool-details {
-  --semantics-dividers-color: light-dark(#154273, var(--primitives-color-donkerblauw-600));
+  --semantics-dividers-color: light-dark(#A3BEDD, var(--primitives-color-donkerblauw-300));
   --semantics-dividers-thickness: 2px;
 }
