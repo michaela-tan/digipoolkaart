@@ -102,10 +102,13 @@ digipool-details {
 /*
  * <digipool-venster>: om het detailvenster (nldd-sheet) heen. Binnen het venster wordt de
  * basisachtergrond lichtblauw, dezelfde kleur als het filterpaneel. Zo krijgen de sheet en
- * zijn titelbalk samen één kleur. Alleen binnen dit element, de rest van de pagina niet.
- * Let op: dit is een variabele van het designsysteem, controleer hem bij een update.
+ * zijn titelbalk samen één kleur, en dezelfde ronde hoeken als het filterpaneel. Alleen
+ * binnen dit element, de rest van de pagina niet.
+ * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.
  */
 digipool-venster {
   display: contents;
   --semantics-surfaces-base-background-color: var(--semantics-surfaces-accent-tinted-background-color);
+  /* Ronde hoeken zoals het filterpaneel (nldd-box); een overlay heeft standaard rechte hoeken. */
+  --semantics-overlays-corner-radius: var(--semantics-surfaces-corner-radius);
 }
