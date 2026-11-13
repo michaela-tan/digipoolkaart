@@ -11,7 +11,7 @@ Open `index.html` in de browser. Er is geen build nodig: de NLDD-componenten kom
 | Bestand | Wat |
 |---|---|
 | `index.html` | De pagina: `nldd-shell` › `nldd-page` › `nldd-sidebar-section` volgens het NLDD-patroon "Filteren" |
-| `js/pools.js` | De pools (**voorbeelddata, fictief**) en de filteropties |
+| `js/pools.js` | De pools (uit het Excel-overzicht van digitaliseringspools) en de filteropties |
 | `js/app.js` | Filterlogica: zoeken, filterknoppen, tokens voor actieve filters, lijst en detailvenster (`nldd-sheet`) |
 | `js/digipool-kaart.js` | Eigen component `<digipool-kaart>`: tekent de provincies en een markering per plaats |
 | `css/digipool-kaart.css` | Stijl van alleen dat eigen component, met `--primitives-*`-kleuren |
@@ -31,4 +31,6 @@ python3 tools/maak_kaart.py data/provincie_2026.geojson js/kaart-nederland.js
 
 ## Pools toevoegen
 
-Voeg een object toe aan `window.DIGIPOOLS` in `js/pools.js`. Pools met dezelfde `plaats` delen één markering, die het aantal toont.
+Voeg een object toe aan `window.DIGIPOOLS` in `js/pools.js`; bovenin dat bestand staat welke velden er zijn. Een pool kan op meer plaatsen staan: `locaties: op('Den Haag', 'Zwolle')`. Staat een plaats nog niet in `PLAATSEN`, voeg dan de coördinaten toe. Pools op dezelfde plaats delen één markering, die het aantal toont.
+
+De filters (`organisaties` en `vakgebieden`) staan niet in de Excel. Kies ze per pool uit `ORGANISATIES` en `VAKGEBIEDEN`. Een veld dat leeg is of ontbreekt, verschijnt niet in het detailvenster.

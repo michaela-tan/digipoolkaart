@@ -80,6 +80,11 @@
   zoeken.addEventListener('input', opZoeken);
   zoeken.addEventListener('search', opZoeken);
 
+  // Alle plaatsen van een pool, voor de lijst, het zoeken en het venster.
+  function plaatsen(pool) {
+    return pool.locaties.map((l) => l.plaats).join(', ');
+  }
+
   // ── Filteren ─────────────────────────────────────────────────────────────────
 
   function past(pool) {
@@ -87,7 +92,7 @@
     if (organisaties.size && !pool.organisaties.some((o) => organisaties.has(o))) return false;
     if (vakgebieden.size && !pool.vakgebieden.some((v) => vakgebieden.has(v))) return false;
     if (zoekterm) {
-      const hooiberg = [pool.naam, pool.organisatie, pool.plaats].join(' ').toLocaleLowerCase('nl');
+      const hooiberg = [pool.naam, pool.organisatie, plaatsen(pool)].join(' ').toLocaleLowerCase('nl');
       if (!hooiberg.includes(zoekterm.toLocaleLowerCase('nl'))) return false;
     }
     return true;
@@ -104,7 +109,7 @@
     const rij = maak('nldd-list-item', { button: true, 'data-id': pool.id }, [
       maak('nldd-text-cell', {
         text: pool.naam,
-        'supporting-text': `${pool.organisatie} · ${pool.plaats}`,
+        'supporting-text': `${pool.organisatie} · ${plaatsen(pool)}`,
       }),
       maak('nldd-spacer-cell', { size: '12' }),
       maak('nldd-icon-cell', { size: '20', color: 'secondary', icon: 'chevron-right' }),
@@ -197,18 +202,18 @@
         maak('nldd-spacer', { size: '8' }),
       );
     }
-    blok.push(
-      tekst(pool.omschrijving),
-      maak('nldd-spacer', { size: '16' }),
-      maak(
-        'nldd-container',
-        { layout: 'wrap', gap: '8' },
-        pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'paars' })),
-      ),
-      maak('nldd-spacer', { size: '16' }),
-      maak('nldd-divider'),
-      maak('nldd-spacer', { size: '16' }),
-    );
+    if (pool.omschrijving) blok.push(tekst(pool.omschrijving), maak('nldd-spacer', { size: '16' }));
+    if (pool.vakgebieden.length) {
+      blok.push(
+        maak(
+          'nldd-container',
+          { layout: 'wrap', gap: '8' },
+          pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'paars' })),
+        ),
+        maak('nldd-spacer', { size: '16' }),
+      );
+    }
+    blok.push(maak('nldd-divider'), maak('nldd-spacer', { size: '16' }));
 
     const rijen = [
       ['Organisatie', pool.organisatie],
@@ -218,15 +223,15 @@
       ['Governance', pool.governance],
       ['Financiering', pool.financiering],
     ].filter(([, waarde]) => waarde);
-    const contact = [
-      maak('nldd-link', { href: `mailto:${pool.contact}`, text: pool.contact, size: 'sm' }),
-    ];
+    const contact = [];
+    if (pool.email) contact.push(maak('nldd-link', { href: `mailto:${pool.email}`, text: pool.email, size: 'sm' }));
+    if (pool.contactpagina) contact.push(maak('nldd-link', { href: pool.contactpagina, text: 'Contactpagina', size: 'sm' }));
     if (pool.telefoon) contact.push(tekst(pool.telefoon));
 
     blok.push(
       maak('nldd-container', { gap: '16' }, [
         ...rijen.map(([label, waarde]) => gegeven(label, tekst(waarde))),
-        gegeven('Contact', ...contact),
+        ...(contact.length ? [gegeven('Contact', ...contact)] : []),
       ]),
     );
 
@@ -255,10 +260,9 @@
   // in de titelbalk en per pool een eigen kop, gescheiden door een lijn.
   function toonDetails(titel, lijstVanPools) {
     const n = lijstVanPools.length;
-    const plaats = lijstVanPools[0].plaats;
     const enkel = n === 1;
     const kop = enkel ? lijstVanPools[0].naam : titel;
-    const onder = enkel ? plaats : `${n} pools`;
+    const onder = enkel ? plaatsen(lijstVanPools[0]) : `${n} pools`;
     vensterTitel.setAttribute('text', kop);
     vensterTitel.setAttribute('supporting-text', onder);
     vensterKop.setAttribute('text', kop);

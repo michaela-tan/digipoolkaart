@@ -6,7 +6,7 @@
 // de markering het aantal.
 //
 // API
-//   kaart.pools = [...]      de pools die nu getoond worden
+//   kaart.pools = [...]      de pools die nu getoond worden; elk met locaties: [{ plaats, lat, lon }]
 //   event 'locatie-kies'     detail: { plaats, pools } bij klik of Enter/spatie
 //   attribuut ontwijk="sel"  de kaart houdt minstens 24px afstand rechts van dat element
 
@@ -98,20 +98,22 @@
       if (!this._markeringen) return;
       this._markeringen.replaceChildren();
 
-      // Groepeer per plaats.
+      // Groepeer per plaats. Een pool met meer locaties staat bij elke plaats.
       const groepen = new Map();
       for (const pool of this._pools) {
-        if (!groepen.has(pool.plaats)) groepen.set(pool.plaats, []);
-        groepen.get(pool.plaats).push(pool);
+        for (const locatie of pool.locaties) {
+          if (!groepen.has(locatie.plaats)) groepen.set(locatie.plaats, { locatie, pools: [] });
+          groepen.get(locatie.plaats).pools.push(pool);
+        }
       }
 
       // Van noord naar zuid tekenen, zodat zuidelijke spelden er bovenop liggen.
-      const gesorteerd = [...groepen.entries()].sort((a, b) => b[1][0].lat - a[1][0].lat);
+      const gesorteerd = [...groepen.entries()].sort((a, b) => b[1].locatie.lat - a[1].locatie.lat);
       // De kaart is ~2400 eenheden breed; de speld schaalt mee.
       const schaal = 4;
 
-      for (const [plaats, pools] of gesorteerd) {
-        const [x, y] = this._projecteer(pools[0].lon, pools[0].lat);
+      for (const [plaats, { locatie, pools }] of gesorteerd) {
+        const [x, y] = this._projecteer(locatie.lon, locatie.lat);
         const label = pools.length === 1
           ? `${plaats}: ${pools[0].naam}`
           : `${plaats}: ${pools.length} pools`;
