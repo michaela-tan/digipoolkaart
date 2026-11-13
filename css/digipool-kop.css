@@ -100,8 +100,8 @@ digipool-details {
 }
 
 /*
- * <digipool-venster>: om het detailvenster (nldd-sheet) heen. Binnen het venster wordt de
- * basisachtergrond lichtblauw, dezelfde kleur als het filterpaneel. Zo krijgen de sheet en
+ * <digipool-venster>: om het detailvenster (nldd-window) heen. Binnen het venster wordt de
+ * basisachtergrond lichtblauw, dezelfde kleur als het filterpaneel. Zo krijgen het venster en
  * zijn titelbalk samen één kleur, en dezelfde ronde hoeken als het filterpaneel. Alleen
  * binnen dit element, de rest van de pagina niet.
  * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.

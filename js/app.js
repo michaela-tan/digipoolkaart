@@ -20,10 +20,10 @@
   const zoeken = $('#zoeken');
   const strip = $('#actieve-filters');
   const stripRuimte = $('#actieve-filters-ruimte');
-  const sheet = $('#details');
-  const sheetTitel = $('#details-titel');
-  const sheetKop = $('#details-kop');
-  const sheetInhoud = $('#details-inhoud');
+  const venster = $('#details');
+  const vensterTitel = $('#details-titel');
+  const vensterKop = $('#details-kop');
+  const vensterInhoud = $('#details-inhoud');
 
   function maak(tag, attrs = {}, kinderen = []) {
     const node = document.createElement(tag);
@@ -171,7 +171,7 @@
       : `${pools.length} pools`;
   }
 
-  // ── Details in een sheet ─────────────────────────────────────────────────────
+  // ── Details in een venster───────────────────────────────────────────────────
 
   // Eén gegeven als rij: label links (vaste breedte), waarde rechts.
   function gegeven(label, ...waarde) {
@@ -233,14 +233,18 @@
     if (pool.website) {
       blok.push(
         maak('nldd-spacer', { size: '24' }),
-        maak('nldd-container', { 'horizontal-alignment': 'center' }, [
-          maak('nldd-button', {
-            href: pool.website,
-            target: '_blank',
-            text: 'Naar website',
-            'end-icon': 'external-link',
-            appearance: 'primary',
-          }),
+        // Zelfde opbouw als een gegeven, met een lege labelkolom: de knop lijnt uit met de waarden.
+        maak('nldd-container', { layout: 'row', gap: '16' }, [
+          maak('nldd-container', { width: '128px' }),
+          maak('nldd-container', {}, [
+            maak('nldd-button', {
+              href: pool.website,
+              target: '_blank',
+              text: 'Naar website',
+              'end-icon': 'external-link',
+              appearance: 'primary',
+            }),
+          ]),
         ]),
       );
     }
@@ -255,10 +259,10 @@
     const enkel = n === 1;
     const kop = enkel ? lijstVanPools[0].naam : titel;
     const onder = enkel ? plaats : `${n} pools`;
-    sheetTitel.setAttribute('text', kop);
-    sheetTitel.setAttribute('supporting-text', onder);
-    sheetKop.setAttribute('text', kop);
-    sheetKop.setAttribute('supporting-text', onder);
+    vensterTitel.setAttribute('text', kop);
+    vensterTitel.setAttribute('supporting-text', onder);
+    vensterKop.setAttribute('text', kop);
+    vensterKop.setAttribute('supporting-text', onder);
 
     const blokken = [];
     lijstVanPools.forEach((pool, i) => {
@@ -272,8 +276,8 @@
       }
       blokken.push(...poolBlok(pool, !enkel));
     });
-    sheetInhoud.replaceChildren(...blokken);
-    sheet.open = true;
+    vensterInhoud.replaceChildren(...blokken);
+    venster.open = true;
   }
 
   kaart.addEventListener('locatie-kies', (e) => {
