@@ -138,7 +138,9 @@
     </nldd-page>
   </nldd-shell>
 
-  <!-- Details van een locatie of pool. Staat op het hoogste niveau en blijft in de DOM. -->
+  <!-- Details van een locatie of pool. Staat op het hoogste niveau en blijft in de DOM.
+       digipool-venster geeft het hele venster, ook de titelbalk, de lichtblauwe achtergrond. -->
+  <digipool-venster>
   <nldd-sheet id="details" placement="right" width="480px">
     <nldd-page>
       <nldd-top-title-bar
@@ -147,12 +149,20 @@
         text="Pools"
         heading-level="2"
         dismiss-text="Sluit"
+        collapse-anchor="details-kop"
       ></nldd-top-title-bar>
-      <nldd-simple-section>
-        <nldd-container id="details-inhoud"></nldd-container>
+      <!-- digipool-details zet de donkerblauwe tekstkleur -->
+      <nldd-simple-section grow>
+        <digipool-details>
+          <!-- De grote titel; de titelbalk toont hem pas als deze kop wegscrolt -->
+          <nldd-title id="details-kop" text="Pools" heading-level="2" size="display-4" color="inherit"></nldd-title>
+          <nldd-spacer size="12"></nldd-spacer>
+          <nldd-container id="details-inhoud"></nldd-container>
+        </digipool-details>
       </nldd-simple-section>
     </nldd-page>
   </nldd-sheet>
+  </digipool-venster>
 
   <!-- Gewone scripts (geen modules), zodat de pagina ook direct vanaf schijf werkt. -->
   <script src="js/kaart-nederland.js"></script>

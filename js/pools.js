@@ -6,6 +6,8 @@
 //   organisaties: een of meer van ORGANISATIES
 //   vakgebieden:  een of meer van VAKGEBIEDEN
 //   plaats, lat, lon: de locatie op de kaart. Pools met dezelfde plaats delen één markering.
+//   expertise, omvang, doelgroep, governance, financiering: tekst in het detailvenster (optioneel)
+//   contact, telefoon, website: contactgegevens (telefoon en website optioneel)
 
 window.ORGANISATIES = ['Gemeente', 'Provincies', 'Waterschappen', 'Rijksoverheid', 'Overheidsbreed'];
 window.VAKGEBIEDEN = ['Data', 'AI', 'Software', 'Security', 'Architectuur', 'Beheer', 'Informatie', 'Projecten'];
@@ -20,6 +22,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Data', 'AI'],
     omschrijving: 'Data-analisten en data scientists die tijdelijk aansluiten bij een project van een ministerie of uitvoeringsorganisatie.',
     contact: 'datapool@example.nl',
+    expertise: 'Data-analisten, data engineers en data scientists',
+    omvang: '40 dataspecialisten',
+    doelgroep: 'Ministeries en uitvoeringsorganisaties',
+    governance: 'Onderdeel van het Ministerie van Voorbeeldzaken',
+    financiering: 'Inzet op basis van een dienstverleningsovereenkomst',
+    telefoon: '088 - 000 00 01',
+    website: 'https://example.nl/datapool',
   },
   {
     id: 'ict-flexpool-rijk',
@@ -30,6 +39,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Software', 'Beheer'],
     omschrijving: 'Ontwikkelaars en beheerders die snel inzetbaar zijn bij pieken in werk of bij de start van een nieuw systeem.',
     contact: 'ictflexpool@example.nl',
+    expertise: 'Ontwikkelaars, testers en applicatiebeheerders',
+    omvang: '60 ICT-professionals',
+    doelgroep: 'Rijksorganisaties binnen heel Nederland',
+    governance: 'Onderdeel van het Ministerie van Voorbeeldzaken',
+    financiering: 'Opdrachten worden uitgevoerd op basis van offertes en tarieven',
+    telefoon: '088 - 000 00 02',
+    website: 'https://example.nl/ictflexpool',
   },
   {
     id: 'security-pool-overheid',
@@ -40,6 +56,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Security'],
     omschrijving: 'Securityspecialisten voor risicoanalyses, pentesten en het opvolgen van incidenten, voor alle overheidslagen.',
     contact: 'securitypool@example.nl',
+    expertise: 'Security officers, pentesters en incidentresponders',
+    omvang: '25 securityspecialisten',
+    doelgroep: 'Alle overheidslagen',
+    governance: 'Ondergebracht bij het Samenwerkingsverband Digitale Veiligheid',
+    financiering: 'Bijdrage per deelnemende organisatie',
+    telefoon: '088 - 000 00 03',
+    website: 'https://example.nl/securitypool',
   },
   {
     id: 'architectenpool',
@@ -50,6 +73,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Architectuur', 'Informatie'],
     omschrijving: 'Enterprise- en informatiearchitecten die meedenken over de inrichting van processen, gegevens en systemen.',
     contact: 'architectenpool@example.nl',
+    expertise: 'Enterprise-, domein- en informatiearchitecten',
+    omvang: '15 architecten',
+    doelgroep: 'Overheidsorganisaties die hun informatievoorziening vernieuwen',
+    governance: 'Ondergebracht bij het Samenwerkingsverband Digitale Overheid',
+    financiering: 'Inzet op uurbasis tegen een vast tarief',
+    telefoon: '088 - 000 00 04',
+    website: 'https://example.nl/architectenpool',
   },
   {
     id: 'haagse-gemeentepool',
@@ -60,6 +90,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Projecten', 'Informatie'],
     omschrijving: 'Projectleiders en informatieadviseurs die gemeenten in de regio Haaglanden ondersteunen.',
     contact: 'gemeentepool@example.nl',
+    expertise: 'Projectleiders en informatieadviseurs',
+    omvang: '20 adviseurs',
+    doelgroep: 'Gemeenten in de regio Haaglanden',
+    governance: 'Gezamenlijke pool van de deelnemende gemeenten',
+    financiering: 'Kosten worden verdeeld naar inzet',
+    telefoon: '088 - 000 00 05',
+    website: 'https://example.nl/gemeentepool',
   },
   {
     id: 'ai-expertpool',
@@ -70,6 +107,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['AI', 'Data'],
     omschrijving: 'Specialisten in machine learning en verantwoorde inzet van algoritmen, met kennis van de AI-verordening.',
     contact: 'aipool@example.nl',
+    expertise: 'Machine-learningspecialisten en AI-ethici',
+    omvang: '12 AI-specialisten',
+    doelgroep: 'Rijksorganisaties en andere overheden',
+    governance: 'Onderdeel van het Ministerie van Voorbeeldzaken',
+    financiering: 'Opdrachten worden uitgevoerd op basis van offertes en tarieven',
+    telefoon: '088 - 000 00 06',
+    website: 'https://example.nl/aipool',
   },
   {
     id: 'noord-hollandse-pool',
@@ -80,6 +124,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Data', 'Projecten', 'Informatie'],
     omschrijving: 'Een gedeelde pool van provincie en gemeenten in Noord-Holland voor tijdelijke inzet op digitaliseringsprojecten.',
     contact: 'digipool-nh@example.nl',
+    expertise: 'Data, informatiebeheer en projectmanagement',
+    omvang: '30 professionals',
+    doelgroep: 'Provincie en gemeenten in Noord-Holland',
+    governance: 'Gezamenlijk bestuurd door provincie en deelnemende gemeenten',
+    financiering: 'Bijdrage per deelnemende organisatie',
+    telefoon: '088 - 000 00 07',
+    website: 'https://example.nl/digipool-nh',
   },
   {
     id: 'waterschapspool',
@@ -90,6 +141,13 @@ window.DIGIPOOLS = [
     vakgebieden: ['Beheer', 'Security', 'Software'],
     omschrijving: 'Beheerders en securityspecialisten met ervaring in procesautomatisering en operationele technologie.',
     contact: 'waterschapspool@example.nl',
+    expertise: 'Beheer, security en procesautomatisering',
+    omvang: '18 specialisten',
+    doelgroep: 'Waterschappen in heel Nederland',
+    governance: 'Ondergebracht bij de samenwerkende waterschappen',
+    financiering: 'Inzet op basis van een dienstverleningsovereenkomst',
+    telefoon: '088 - 000 00 08',
+    website: 'https://example.nl/waterschapspool',
   },
   {
     id: 'brabantse-talentpool',
@@ -100,5 +158,12 @@ window.DIGIPOOLS = [
     vakgebieden: ['Software', 'Data', 'Projecten'],
     omschrijving: 'Jonge professionals en ervaren specialisten die afwisselend bij Brabantse overheden werken.',
     contact: 'talentpool-brabant@example.nl',
+    expertise: 'Softwareontwikkeling, data en projecten',
+    omvang: '35 trainees en specialisten',
+    doelgroep: 'Provincie en gemeenten in Noord-Brabant',
+    governance: 'Onderdeel van de Provincie Noord-Brabant',
+    financiering: 'Kosten worden verdeeld naar inzet',
+    telefoon: '088 - 000 00 09',
+    website: 'https://example.nl/talentpool-brabant',
   },
 ];

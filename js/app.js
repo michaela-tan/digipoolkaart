@@ -22,6 +22,7 @@
   const stripRuimte = $('#actieve-filters-ruimte');
   const sheet = $('#details');
   const sheetTitel = $('#details-titel');
+  const sheetKop = $('#details-kop');
   const sheetInhoud = $('#details-inhoud');
 
   function maak(tag, attrs = {}, kinderen = []) {
@@ -172,44 +173,104 @@
 
   // ── Details in een sheet ─────────────────────────────────────────────────────
 
+  // Eén gegeven als rij: label links (vaste breedte), waarde rechts.
+  function gegeven(label, ...waarde) {
+    return maak('nldd-container', { layout: 'row', gap: '16' }, [
+      maak('nldd-container', { width: '128px' }, [
+        maak('nldd-text', { size: 'sm', weight: 'bold', color: 'inherit' }, [label]),
+      ]),
+      maak('nldd-container', {}, waarde),
+    ]);
+  }
+
+  function tekst(waarde) {
+    return maak('nldd-text', { size: 'sm', color: 'inherit' }, [waarde]);
+  }
+
+  // De inhoud van één pool, zoals in het ontwerp: omschrijving, vakgebieden,
+  // een scheidingslijn, de gegevens en een knop naar de website.
+  function poolBlok(pool, metTitel) {
+    const blok = [];
+    if (metTitel) {
+      blok.push(
+        maak('nldd-title', { text: pool.naam, 'heading-level': '3', size: 'display-5', color: 'inherit' }),
+        maak('nldd-spacer', { size: '8' }),
+      );
+    }
+    blok.push(
+      tekst(pool.omschrijving),
+      maak('nldd-spacer', { size: '16' }),
+      maak(
+        'nldd-container',
+        { layout: 'wrap', gap: '8' },
+        pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'lichtblauw' })),
+      ),
+      maak('nldd-spacer', { size: '16' }),
+      maak('nldd-divider'),
+      maak('nldd-spacer', { size: '16' }),
+    );
+
+    const rijen = [
+      ['Organisatie', pool.organisatie],
+      ['Vakgebied', pool.expertise],
+      ['Omvang', pool.omvang],
+      ['Doelgroep', pool.doelgroep],
+      ['Governance', pool.governance],
+      ['Financiering', pool.financiering],
+    ].filter(([, waarde]) => waarde);
+    const contact = [
+      maak('nldd-link', { href: `mailto:${pool.contact}`, text: pool.contact, size: 'sm' }),
+    ];
+    if (pool.telefoon) contact.push(tekst(pool.telefoon));
+
+    blok.push(
+      maak('nldd-container', { gap: '16' }, [
+        ...rijen.map(([label, waarde]) => gegeven(label, tekst(waarde))),
+        gegeven('Contact', ...contact),
+      ]),
+    );
+
+    if (pool.website) {
+      blok.push(
+        maak('nldd-spacer', { size: '24' }),
+        maak('nldd-container', { 'horizontal-alignment': 'center' }, [
+          maak('nldd-button', {
+            href: pool.website,
+            target: '_blank',
+            text: 'Naar website',
+            'end-icon': 'external-link',
+            appearance: 'primary',
+          }),
+        ]),
+      );
+    }
+    return blok;
+  }
+
+  // Eén pool: de naam staat in de titelbalk. Meer pools op één plaats: de plaats
+  // in de titelbalk en per pool een eigen kop, gescheiden door een lijn.
   function toonDetails(titel, lijstVanPools) {
     const n = lijstVanPools.length;
     const plaats = lijstVanPools[0].plaats;
-    sheetTitel.setAttribute('text', titel);
-    sheetTitel.setAttribute(
-      'supporting-text',
-      titel !== plaats ? plaats : `${n} ${n === 1 ? 'pool' : 'pools'}`,
-    );
+    const enkel = n === 1;
+    const kop = enkel ? lijstVanPools[0].naam : titel;
+    const onder = enkel ? plaats : `${n} pools`;
+    sheetTitel.setAttribute('text', kop);
+    sheetTitel.setAttribute('supporting-text', onder);
+    sheetKop.setAttribute('text', kop);
+    sheetKop.setAttribute('supporting-text', onder);
 
     const blokken = [];
     lijstVanPools.forEach((pool, i) => {
-      if (i > 0) blokken.push(maak('nldd-spacer', { size: '32' }));
-      blokken.push(
-        maak('nldd-title', {
-          text: pool.naam,
-          'supporting-text': pool.organisatie,
-          'heading-level': '3',
-          size: 'display-5',
-        }),
-        maak('nldd-spacer', { size: '8' }),
-        maak('nldd-text', {}, [pool.omschrijving]),
-        maak('nldd-spacer', { size: '12' }),
-        maak(
-          'nldd-container',
-          { layout: 'wrap', gap: '4' },
-          [
-            ...pool.organisaties.map((o) => maak('nldd-tag', { text: o, size: 'sm', color: 'accent' })),
-            ...pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, size: 'sm', color: 'neutral' })),
-          ],
-        ),
-        maak('nldd-spacer', { size: '12' }),
-        maak('nldd-link', {
-          href: `mailto:${pool.contact}`,
-          'start-icon': 'envelope',
-          text: pool.contact,
-          size: 'sm',
-        }),
-      );
+      if (i === 0 && !enkel) blokken.push(maak('nldd-spacer', { size: '16' }));
+      if (i > 0) {
+        blokken.push(
+          maak('nldd-spacer', { size: '32' }),
+          maak('nldd-divider'),
+          maak('nldd-spacer', { size: '32' }),
+        );
+      }
+      blokken.push(...poolBlok(pool, !enkel));
     });
     sheetInhoud.replaceChildren(...blokken);
     sheet.open = true;
