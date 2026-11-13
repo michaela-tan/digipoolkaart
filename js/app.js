@@ -203,7 +203,7 @@
       maak(
         'nldd-container',
         { layout: 'wrap', gap: '8' },
-        pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'lichtblauw' })),
+        pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'paars' })),
       ),
       maak('nldd-spacer', { size: '16' }),
       maak('nldd-divider'),
