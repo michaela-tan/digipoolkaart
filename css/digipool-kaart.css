@@ -14,6 +14,15 @@ digipool-kaart svg {
   inline-size: 100%;
   block-size: auto;
   max-block-size: 80dvh;
+  /* Het svg-vlak is breder dan de getekende kaart en schuift (zie _centreer) deels over
+     het filterpaneel. Lege delen laten klikken door, anders vangen ze bijvoorbeeld het
+     wiskruisje van de zoekbalk af. Alleen het land en de spelden zijn klikbaar. */
+  pointer-events: none;
+}
+
+.digipool-kaart__land path,
+.digipool-kaart__markering {
+  pointer-events: auto;
 }
 
 .digipool-kaart__land path {
