@@ -51,7 +51,7 @@
             </nldd-text>
           </nldd-container>
         </digipool-kop>
-        <nldd-container padding="16" padding-bottom="8">
+        <nldd-container padding="16">
           <nldd-skip-link
             id="filters-overslaan"
             text="Sla filters over"
@@ -97,8 +97,12 @@
             <!-- gevuld door js/app.js -->
           </nldd-container>
 
-          <nldd-spacer size="16"></nldd-spacer>
-          <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
+          <!-- Het aantal staat zichtbaar boven de lijst en in de schakelaar ("Lijst (19)").
+               Hier alleen voor schermlezers, zodat ze na elke filterwijziging horen hoeveel
+               pools er over zijn. -->
+          <nldd-visually-hidden>
+            <span id="aantal" role="status"></span>
+          </nldd-visually-hidden>
         </nldd-container>
         </nldd-box>
         </digipool-paneel>
