@@ -64,6 +64,19 @@ digipool-kaart svg {
   fill: var(--primitives-color-lintblauw-600);
 }
 
+/*
+ * De spelden van de gekozen pool (uit het poolsoverzicht): violet uit de Rijkshuisstijl met een
+ * witte kern. Contrast met het land (#76D2B6): 4,1:1, boven de 3:1 voor grafische onderdelen.
+ */
+.digipool-kaart__markering--gekozen .digipool-kaart__speld,
+.digipool-kaart__markering--gekozen:hover .digipool-kaart__speld {
+  fill: #A90061;
+}
+
+.digipool-kaart__markering--gekozen .digipool-kaart__kern {
+  fill: #FFFFFF;
+}
+
 /* Zichtbare focus voor toetsenbordgebruikers. */
 .digipool-kaart__markering:focus-visible .digipool-kaart__speld,
 .digipool-kaart__markering:focus-visible .digipool-kaart__aantal-bol {
@@ -75,4 +88,46 @@ digipool-kaart svg {
   .digipool-kaart__land path { fill: Canvas; stroke: CanvasText; }
   .digipool-kaart__speld { fill: LinkText; stroke: Canvas; }
   .digipool-kaart__markering:focus-visible .digipool-kaart__speld { stroke: Highlight; }
+}
+
+/*
+ * <digipool-kaartvlak>: de kaart met rechts ernaast de lijst met pools (digipool-lijstpaneel),
+ * zodat alles op één scherm past. Een eigen element: het designsysteem heeft geen layout
+ * met een kolom die meegroeit naast een kolom met vaste breedte.
+ * De kolom voor de lijst staat er altijd, ook als de lijst verborgen is: zo houdt de kaart
+ * dezelfde maat bij "Toon lijst" en verspringt er niets. Onder 1008px (63rem) staat de lijst
+ * onder de kaart.
+ */
+digipool-kaartvlak {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (min-width: 63rem) {
+  digipool-kaartvlak {
+    /* Even breed als het filterpaneel (digipool-paneel, max. 380px), zodat links en rechts gelijk zijn. */
+    grid-template-columns: minmax(0, 1fr) 380px;
+  }
+}
+
+/*
+ * <digipool-lijstpaneel>: het vak met de lijst. Even hoog als de kaart op zijn hoogst (80dvh);
+ * is de lijst langer, dan scrolt alleen de lijst, niet de pagina.
+ */
+digipool-lijstpaneel {
+  display: block;
+}
+
+digipool-lijstpaneel[hidden] {
+  display: none;
+}
+
+@media (min-width: 63rem) {
+  digipool-lijstpaneel {
+    max-block-size: 80dvh;
+    overflow-y: auto;
+    border-radius: var(--semantics-surfaces-corner-radius);
+  }
 }

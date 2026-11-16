@@ -12,7 +12,7 @@ Open `index.html` in de browser. Er is geen build nodig: de NLDD-componenten kom
 |---|---|
 | `index.html` | De pagina: `nldd-shell` › `nldd-page` › `nldd-sidebar-section` volgens het NLDD-patroon "Filteren" |
 | `js/pools.js` | De pools (uit het Excel-overzicht van digitaliseringspools) en de filteropties |
-| `js/app.js` | Filterlogica: zoeken, filterknoppen, tokens voor actieve filters, lijst en detailvenster (`nldd-sheet`) |
+| `js/app.js` | Filterlogica: zoeken, filters (lijst met vinkjes en filterlabels), lijst en detailvenster (`nldd-window`) |
 | `js/digipool-kaart.js` | Eigen component `<digipool-kaart>`: tekent de provincies en een markering per plaats |
 | `css/digipool-kaart.css` | Stijl van alleen dat eigen component, met `--primitives-*`-kleuren |
 | `js/kaart-nederland.js` | Gegenereerde SVG-paden van de provincies |

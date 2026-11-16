@@ -53,7 +53,7 @@
           <nldd-skip-link
             id="filters-overslaan"
             text="Sla filters over"
-            href="#resultaten"
+            href="#kaart"
           ></nldd-skip-link>
 
           <nldd-title
@@ -78,9 +78,12 @@
             color="inherit"
           ></nldd-title>
           <nldd-spacer size="8"></nldd-spacer>
-          <nldd-container id="filter-organisaties" layout="wrap" gap="8">
-            <!-- gevuld door js/app.js -->
+          <!-- digipool-filterlijst geeft de tekst de kleur van de filterlabels (zie css/digipool-kop.css) -->
+          <digipool-filterlijst>
+          <nldd-container id="filter-organisaties">
+            <!-- gevuld door js/app.js: een lijst met een checkbox per organisatie -->
           </nldd-container>
+          </digipool-filterlijst>
 
           <nldd-spacer size="24"></nldd-spacer>
 
@@ -95,39 +98,59 @@
             <!-- gevuld door js/app.js -->
           </nldd-container>
 
-          <nldd-spacer size="16"></nldd-spacer>
-          <nldd-text id="aantal" size="sm" color="secondary" aria-live="polite"></nldd-text>
+          <nldd-spacer size="24"></nldd-spacer>
+          <!-- Toont of verbergt de lijst met pools naast de kaart (js/app.js wisselt tekst en expanded) -->
+          <nldd-button
+            id="toon-lijst"
+            text="Toon lijst"
+            appearance="primary"
+            size="sm"
+            start-icon="bullet-list"
+            aria-controls="lijstpaneel"
+          ></nldd-button>
         </nldd-container>
         </nldd-box>
         </digipool-paneel>
 
-        <!-- Actieve filters: één token per waarde, elk is zijn eigen weg terug -->
-        <nldd-container
-          id="actieve-filters"
-          layout="wrap"
-          gap="8"
-          vertical-alignment="center"
-          hidden
-        ></nldd-container>
-        <nldd-spacer id="actieve-filters-ruimte" size="16" hidden></nldd-spacer>
+        <!-- Kaart en lijst naast elkaar; digipool-kaartvlak verdeelt de ruimte (zie css/digipool-kaart.css) -->
+        <digipool-kaartvlak>
+          <!-- De kaart -->
+          <digipool-kaart id="kaart" ontwijk="digipool-paneel"></digipool-kaart>
 
-        <!-- De kaart -->
-        <digipool-kaart id="kaart" ontwijk="digipool-paneel"></digipool-kaart>
-
-        <nldd-spacer size="32"></nldd-spacer>
-
-        <!-- Dezelfde pools als lijst: de toegankelijke weg naast de kaart -->
-        <nldd-title text="Alle pools" heading-level="2" size="display-4"></nldd-title>
-        <nldd-spacer size="8"></nldd-spacer>
-        <nldd-list id="resultaten" appearance="box-base" accessible-label="Pools">
-          <nldd-inline-dialog
-            slot="no-results"
-            icon="magnifier"
-            text="Geen pools gevonden"
-            supporting-text="Pas je zoekopdracht of filters aan."
-          ></nldd-inline-dialog>
-          <!-- gevuld door js/app.js -->
-        </nldd-list>
+          <!-- Dezelfde pools als lijst: de toegankelijke weg naast de kaart. Verborgen tot "Toon lijst". -->
+          <digipool-lijstpaneel id="lijstpaneel" hidden>
+            <nldd-box background="accent-tinted">
+              <digipool-details>
+                <nldd-container padding="16">
+                  <!-- De titel noemt het aantal: "Alle 19 pools", gefilterd "9 van 19 pools" (js/app.js) -->
+                  <!-- Titel links, rechts "Sluit" zoals in het detailvenster -->
+                  <nldd-container layout="row" gap="12" vertical-alignment="center">
+                    <nldd-container>
+                      <nldd-title id="aantal" text="Alle pools" heading-level="2" size="display-6" color="inherit" aria-live="polite"></nldd-title>
+                    </nldd-container>
+                    <nldd-container width="fit-content">
+                      <nldd-button id="sluit-lijst" text="Sluit" appearance="accent-transparent" size="sm"></nldd-button>
+                    </nldd-container>
+                  </nldd-container>
+                  <nldd-spacer size="8"></nldd-spacer>
+                  <!-- Een kaart (nldd-card) per pool; digipool-poolkaarten kleurt de rand donkerblauw -->
+                  <digipool-poolkaarten>
+                    <nldd-container id="resultaten" gap="8">
+                      <!-- gevuld door js/app.js -->
+                    </nldd-container>
+                  </digipool-poolkaarten>
+                  <nldd-inline-dialog
+                    id="geen-resultaten"
+                    icon="magnifier"
+                    text="Geen pools gevonden"
+                    supporting-text="Pas je zoekopdracht of filters aan."
+                    hidden
+                  ></nldd-inline-dialog>
+                </nldd-container>
+              </digipool-details>
+            </nldd-box>
+          </digipool-lijstpaneel>
+        </digipool-kaartvlak>
 
         <nldd-spacer size="16"></nldd-spacer>
         <nldd-text size="xs" color="secondary">

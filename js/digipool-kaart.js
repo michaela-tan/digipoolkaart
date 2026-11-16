@@ -9,6 +9,8 @@
 //   kaart.pools = [...]      de pools die nu getoond worden; elk met locaties: [{ plaats, lat, lon }]
 //   event 'locatie-kies'     detail: { plaats, pools } bij klik of Enter/spatie
 //   attribuut ontwijk="sel"  de kaart houdt minstens 24px afstand rechts van dat element
+//   kaart.gekozen = { pool: id } | null
+//                            kleurt de spelden van die pool violet; null zet ze terug
 
 (function () {
   const SVG = 'http://www.w3.org/2000/svg';
@@ -89,6 +91,15 @@
       return this._pools;
     }
 
+    set gekozen(waarde) {
+      this._gekozen = waarde || null;
+      this._teken();
+    }
+
+    get gekozen() {
+      return this._gekozen || null;
+    }
+
     _projecteer(lon, lat) {
       const p = window.KAART_NEDERLAND.projectie;
       return [(lon - p.lon0) * p.cos * p.schaal, (p.lat0 - lat) * p.schaal];
@@ -100,6 +111,7 @@
 
       // Groepeer per plaats. Een pool met meer locaties staat bij elke plaats.
       const groepen = new Map();
+      const gekozenPool = this._gekozen?.pool;
       for (const pool of this._pools) {
         for (const locatie of pool.locaties) {
           if (!groepen.has(locatie.plaats)) groepen.set(locatie.plaats, { locatie, pools: [] });
@@ -108,22 +120,26 @@
       }
 
       // Van noord naar zuid tekenen, zodat zuidelijke spelden er bovenop liggen.
-      const gesorteerd = [...groepen.entries()].sort((a, b) => b[1].locatie.lat - a[1].locatie.lat);
+      // Spelden met de gekozen pool als laatste, zodat ze boven de andere liggen.
+      const isGekozen = (groep) => groep.pools.some((p) => p.id === gekozenPool);
+      const gesorteerd = [...groepen.entries()].sort((a, b) =>
+        (isGekozen(a[1]) - isGekozen(b[1])) || (b[1].locatie.lat - a[1].locatie.lat));
       // De kaart is ~2400 eenheden breed; de speld schaalt mee.
       const schaal = 4;
 
       for (const [plaats, { locatie, pools }] of gesorteerd) {
         const [x, y] = this._projecteer(locatie.lon, locatie.lat);
+        const gekozen = isGekozen({ pools });
         const label = pools.length === 1
           ? `${plaats}: ${pools[0].naam}`
           : `${plaats}: ${pools.length} pools`;
 
         const g = el('g', {
-          class: 'digipool-kaart__markering',
+          class: gekozen ? 'digipool-kaart__markering digipool-kaart__markering--gekozen' : 'digipool-kaart__markering',
           transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${schaal})`,
           role: 'button',
           tabindex: '0',
-          'aria-label': label,
+          'aria-label': gekozen ? `${label} (gekozen)` : label,
         });
         const titel = el('title');
         titel.textContent = label;

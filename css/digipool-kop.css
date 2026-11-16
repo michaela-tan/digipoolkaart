@@ -86,6 +86,36 @@ digipool-paneel {
 }
 
 /*
+ * <digipool-filterlijst>: om de lijst met organisaties (een rij met checkbox per optie).
+ * De tekst in de rijen krijgt dezelfde kleur als de tekst van de filterlabels hierboven.
+ * Let op: dit is een variabele van het designsysteem, controleer hem bij een update.
+ */
+digipool-filterlijst {
+  display: block;
+  --semantics-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+
+  /*
+   * Rijen bij aanwijzen, indrukken, aanvinken en toetsenbordfocus in de mintgroene tinten
+   * van de filterlabels, in plaats van grijs. De tekst blijft donkerblauw (#003660):
+   * contrast 9,1:1 op #B9E7D7 en 8,0:1 op #9EDDC8, ruim boven de 4,5:1 van WCAG.
+   * Bewust niet de paginakleur #D5F1E9 voor aanwijzen: die verschilt nauwelijks van het
+   * lichtblauwe paneel (1,02:1), dan zie je de hover bijna niet.
+   */
+  --semantics-list-items-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
+  --semantics-list-items-is-hovered-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-list-items-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
+  --semantics-list-items-is-active-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-list-items-is-selected-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-100));
+  --semantics-list-items-is-selected-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-list-items-is-selected-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
+  --semantics-list-items-is-selected-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
+  --semantics-list-items-is-highlighted-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-100));
+  --semantics-list-items-is-highlighted-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-list-items-is-highlighted-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
+  --semantics-list-items-is-highlighted-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
+}
+
+/*
  * Tekstkleur van het paneel: donkerblauw. De kopjes (nldd-title color="inherit") nemen deze
  * kleur over; de witte kop (digipool-kop) zet zijn eigen kleur. In donkere modus licht.
  */
@@ -121,4 +151,35 @@ digipool-venster {
 digipool-details {
   --semantics-dividers-color: light-dark(#A3BEDD, var(--primitives-color-donkerblauw-300));
   --semantics-dividers-thickness: 2px;
+}
+
+/*
+ * <digipool-poolkaarten>: om de kaarten (nldd-card background="accent-tinted") in het
+ * poolsoverzicht. Binnen dit element krijgen ze een donkerblauwe rand, donkerblauwe tekst en
+ * bij aanwijzen en indrukken de mintgroene tinten van de filters.
+ * Rand #154273 op lichtblauw: contrast 8,3:1. Tekst #003660 op #B9E7D7: 9,1:1.
+ * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.
+ */
+digipool-poolkaarten {
+  display: block;
+  --semantics-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
+  --semantics-surfaces-accent-tinted-highlight-border-color: light-dark(#154273, var(--primitives-color-donkerblauw-700));
+  --components-card-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
+  --components-card-is-hovered-border-color: light-dark(#154273, var(--primitives-color-donkerblauw-700));
+  --components-card-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
+  --components-card-is-active-border-color: light-dark(#154273, var(--primitives-color-donkerblauw-700));
+}
+
+/*
+ * De gekozen pool in het overzicht (js/app.js zet data-gekozen zolang zijn detailvenster open is):
+ * donkerblauw vlak met witte tekst, zoals een aangezet filter. Contrast wit op #154273: 10,4:1.
+ * Let op: dit zijn variabelen van het designsysteem, controleer ze bij een update.
+ */
+/* nldd-lint-disable-next-line stylesheet-no-own -- nldd-card heeft geen attribuut voor een gekozen staat */
+digipool-poolkaarten [data-gekozen] {
+  --semantics-surfaces-accent-tinted-background-color: light-dark(#154273, var(--primitives-color-mintgroen-700));
+  --semantics-content-color: light-dark(#FFFFFF, var(--primitives-color-mintgroen-0));
+  --semantics-content-secondary-color: light-dark(#FFFFFF, var(--primitives-color-mintgroen-0));
+  --components-card-is-hovered-background-color: light-dark(#003660, var(--primitives-color-mintgroen-650));
+  --components-card-is-active-background-color: light-dark(#002A4D, var(--primitives-color-mintgroen-750));
 }
