@@ -9,6 +9,11 @@ digipool-kaart {
   inline-size: 100%;
 }
 
+/* Verborgen als de lijst gekozen is; display: block hierboven zou hidden anders opheffen. */
+digipool-kaart[hidden] {
+  display: none;
+}
+
 digipool-kaart svg {
   display: block;
   inline-size: 100%;

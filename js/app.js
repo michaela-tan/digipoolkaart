@@ -24,6 +24,9 @@
   const vensterTitel = $('#details-titel');
   const vensterKop = $('#details-kop');
   const vensterInhoud = $('#details-inhoud');
+  const weergave = $('#weergave');
+  const weergaveLijst = $('#weergave-lijst');
+  const lijstweergave = $('#lijstweergave');
 
   function maak(tag, attrs = {}, kinderen = []) {
     const node = document.createElement(tag);
@@ -174,7 +177,26 @@
     aantal.textContent = isGefilterd()
       ? `${zichtbaar.length} van ${pools.length} pools`
       : `${pools.length} pools`;
+    weergaveLijst.setAttribute('text', `Lijst (${zichtbaar.length})`);
   }
+
+  // ── Kaart of lijst ───────────────────────────────────────────────────────────
+
+  // Eén van de twee staat op de plek van de kaart; de keuze staat in de URL
+  // (#lijst), zodat terugkomen of een gedeelde link dezelfde weergave toont.
+  function toonWeergave(keuze) {
+    const lijstGekozen = keuze === 'lijst';
+    kaart.hidden = lijstGekozen;
+    lijstweergave.hidden = !lijstGekozen;
+    if (weergave.value !== keuze) weergave.value = keuze;
+    history.replaceState(null, '', lijstGekozen ? '#lijst' : location.pathname + location.search);
+  }
+
+  weergave.addEventListener('change', (e) => {
+    toonWeergave(e.detail?.value ?? weergave.value);
+  });
+
+  if (location.hash === '#lijst') toonWeergave('lijst');
 
   // ── Details in een venster───────────────────────────────────────────────────
 

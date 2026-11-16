@@ -53,7 +53,7 @@
           <nldd-skip-link
             id="filters-overslaan"
             text="Sla filters over"
-            href="#resultaten"
+            href="#weergave"
           ></nldd-skip-link>
 
           <nldd-title
@@ -101,6 +101,15 @@
         </nldd-box>
         </digipool-paneel>
 
+        <!-- Kaart of lijst: in de usabilitytest zagen gebruikers de lijst onder de kaart niet.
+             De schakelaar staat in het eerste scherm, op elke breedte; het aantal in "Lijst"
+             volgt de filters (js/app.js). -->
+        <nldd-segmented-control id="weergave" value="kaart" accessible-label="Toon de pools als">
+          <nldd-segmented-control-item value="kaart" text="Kaart"></nldd-segmented-control-item>
+          <nldd-segmented-control-item id="weergave-lijst" value="lijst" text="Lijst"></nldd-segmented-control-item>
+        </nldd-segmented-control>
+        <nldd-spacer size="16"></nldd-spacer>
+
         <!-- Actieve filters: één token per waarde, elk is zijn eigen weg terug -->
         <nldd-container
           id="actieve-filters"
@@ -114,11 +123,10 @@
         <!-- De kaart -->
         <digipool-kaart id="kaart" ontwijk="digipool-paneel"></digipool-kaart>
 
-        <nldd-spacer size="32"></nldd-spacer>
-
-        <!-- Dezelfde pools als lijst: de toegankelijke weg naast de kaart -->
-        <nldd-title text="Alle pools" heading-level="2" size="display-4"></nldd-title>
-        <nldd-spacer size="8"></nldd-spacer>
+        <!-- Dezelfde pools als lijst, op de plek van de kaart (zie de schakelaar hierboven).
+             Verborgen zolang "Kaart" gekozen is, zodat toetsenbordgebruikers niet door
+             onzichtbare rijen tabben; de schakelaar is de weg ernaartoe. -->
+        <nldd-container id="lijstweergave" hidden>
         <nldd-list id="resultaten" appearance="box-base" accessible-label="Pools">
           <nldd-inline-dialog
             slot="no-results"
@@ -128,6 +136,7 @@
           ></nldd-inline-dialog>
           <!-- gevuld door js/app.js -->
         </nldd-list>
+        </nldd-container>
 
         <nldd-spacer size="16"></nldd-spacer>
         <nldd-text size="xs" color="secondary">
