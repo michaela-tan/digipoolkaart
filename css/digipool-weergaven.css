@@ -1,0 +1,58 @@
+/*
+ * Kaart en lijst (eigen elementen, geen nldd-*).
+ *
+ * Vanaf 1280px (80rem) staan de kaart en de lijst naast elkaar: de lijst is meteen te zien
+ * en scrolt binnen zijn eigen kolom, zo hoog als de kaart. Smaller staat er één tegelijk
+ * en kiest <digipool-schakelaar> welke (js/app.js).
+ * Kleuren komen uit het designsysteem, zodat licht en donker meebewegen.
+ */
+
+digipool-weergaven,
+digipool-lijstkolom,
+digipool-lijstrol,
+digipool-schakelaar {
+  display: block;
+}
+
+digipool-lijstkolom[hidden] {
+  display: none;
+}
+
+/* De kop boven de lijst is er alleen in de brede weergave. */
+digipool-lijstkop {
+  display: none;
+}
+
+@media (min-width: 80rem) {
+  digipool-schakelaar {
+    display: none;
+  }
+
+  digipool-weergaven {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  /* De rij krijgt de hoogte van de kaart; de lijstkolom vult die en groeit niet mee. */
+  digipool-lijstkolom {
+    display: flex;
+    flex-direction: column;
+    block-size: 0;
+    min-block-size: 100%;
+  }
+
+  digipool-lijstkop {
+    display: block;
+    color: light-dark(#154273, var(--primitives-color-donkerblauw-900));
+  }
+
+  digipool-lijstrol {
+    flex: 1;
+    min-block-size: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: var(--semantics-surfaces-corner-radius);
+  }
+}

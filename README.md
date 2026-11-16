@@ -15,6 +15,7 @@ Open `index.html` in de browser. Er is geen build nodig: de NLDD-componenten kom
 | `js/app.js` | Filterlogica: zoeken, filterknoppen, tokens voor actieve filters, lijst en detailvenster (`nldd-sheet`) |
 | `js/digipool-kaart.js` | Eigen component `<digipool-kaart>`: tekent de provincies en een markering per plaats |
 | `css/digipool-kaart.css` | Stijl van alleen dat eigen component, met `--primitives-*`-kleuren |
+| `css/digipool-weergaven.css` | Kaart en lijst: vanaf 1280px naast elkaar, smaller één tegelijk met de schakelaar Kaart \| Lijst |
 | `js/kaart-nederland.js` | Gegenereerde SVG-paden van de provincies |
 | `data/provincie_2026.geojson` | Bron van de kaart |
 | `tools/maak_kaart.py` | Zet de GeoJSON om naar `js/kaart-nederland.js` |

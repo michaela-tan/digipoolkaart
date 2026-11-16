@@ -65,8 +65,14 @@ digipool-kaart svg {
   dominant-baseline: central;
 }
 
-.digipool-kaart__markering:hover .digipool-kaart__speld {
+.digipool-kaart__markering:hover .digipool-kaart__speld,
+.digipool-kaart__markering.is-gemarkeerd .digipool-kaart__speld {
   fill: var(--primitives-color-lintblauw-600);
+}
+
+/* Gemarkeerd vanuit de lijst: de speld groeit vanuit zijn punt (0,0). */
+.digipool-kaart__markering.is-gemarkeerd > :not(title) {
+  transform: scale(1.3);
 }
 
 /* Zichtbare focus voor toetsenbordgebruikers. */
@@ -80,4 +86,5 @@ digipool-kaart svg {
   .digipool-kaart__land path { fill: Canvas; stroke: CanvasText; }
   .digipool-kaart__speld { fill: LinkText; stroke: Canvas; }
   .digipool-kaart__markering:focus-visible .digipool-kaart__speld { stroke: Highlight; }
+  .digipool-kaart__markering.is-gemarkeerd .digipool-kaart__speld { fill: Highlight; }
 }

@@ -8,6 +8,9 @@
 // API
 //   kaart.pools = [...]      de pools die nu getoond worden; elk met locaties: [{ plaats, lat, lon }]
 //   event 'locatie-kies'     detail: { plaats, pools } bij klik of Enter/spatie
+//   event 'locatie-wijs'     detail: { plaats, pools } als een speld aangewezen of gefocust
+//                            wordt, detail: null als dat ophoudt
+//   kaart.markeer(ids)       licht de spelden op van de pools met deze id's ([] wist)
 //   attribuut ontwijk="sel"  de kaart houdt minstens 24px afstand rechts van dat element
 
 (function () {
@@ -25,6 +28,19 @@
     constructor() {
       super();
       this._pools = [];
+      this._gemarkeerd = new Set();
+    }
+
+    // Licht de spelden op waar een van deze pools staat, en legt ze bovenop.
+    markeer(ids) {
+      this._gemarkeerd = new Set(ids || []);
+      if (!this._markeringen) return;
+      for (const g of [...this._markeringen.children]) {
+        const aan = g.dataset.ids.split(' ').some((id) => this._gemarkeerd.has(id));
+        g.classList.toggle('is-gemarkeerd', aan);
+        // In SVG ligt wat later komt bovenop.
+        if (aan) this._markeringen.append(g);
+      }
     }
 
     connectedCallback() {
@@ -124,6 +140,7 @@
           role: 'button',
           tabindex: '0',
           'aria-label': label,
+          'data-ids': pools.map((p) => p.id).join(' '),
         });
         const titel = el('title');
         titel.textContent = label;
@@ -144,6 +161,12 @@
 
         const kies = () =>
           this.dispatchEvent(new CustomEvent('locatie-kies', { detail: { plaats, pools }, bubbles: true }));
+        const wijs = (aan) =>
+          this.dispatchEvent(new CustomEvent('locatie-wijs', { detail: aan ? { plaats, pools } : null, bubbles: true }));
+        g.addEventListener('pointerenter', () => wijs(true));
+        g.addEventListener('pointerleave', () => wijs(false));
+        g.addEventListener('focus', () => wijs(true));
+        g.addEventListener('blur', () => wijs(false));
         g.addEventListener('click', kies);
         g.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -153,6 +176,8 @@
         });
         this._markeringen.append(g);
       }
+      // Na filteren opnieuw getekend: de markering blijft staan.
+      this.markeer([...this._gemarkeerd]);
     }
   }
 

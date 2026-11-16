@@ -27,6 +27,10 @@
   const weergave = $('#weergave');
   const weergaveLijst = $('#weergave-lijst');
   const lijstweergave = $('#lijstweergave');
+  const lijstKop = $('#lijst-kop');
+  const lijstRol = $('digipool-lijstrol');
+  const skiplink = $('#filters-overslaan');
+  const breed = matchMedia('(min-width: 80rem)');
 
   function maak(tag, attrs = {}, kinderen = []) {
     const node = document.createElement(tag);
@@ -118,6 +122,11 @@
       maak('nldd-icon-cell', { size: '20', color: 'secondary', icon: 'chevron-right' }),
     ]);
     rij.addEventListener('click', () => toonDetails(pool.naam, [pool]));
+    // Rij aangewezen of gefocust: de speld(en) van deze pool lichten op.
+    rij.addEventListener('pointerenter', () => kaart.markeer([pool.id]));
+    rij.addEventListener('pointerleave', () => kaart.markeer([]));
+    rij.addEventListener('focusin', () => kaart.markeer([pool.id]));
+    rij.addEventListener('focusout', () => kaart.markeer([]));
     rijen.set(pool.id, rij);
     lijst.append(rij);
   }
@@ -178,25 +187,65 @@
       ? `${zichtbaar.length} van ${pools.length} pools`
       : `${pools.length} pools`;
     weergaveLijst.setAttribute('text', `Lijst (${zichtbaar.length})`);
+    lijstKop.setAttribute('text', aantal.textContent);
   }
+
+  // ── Speld aangewezen: de rijen van die pools lichten op ──────────────────────
+
+  kaart.addEventListener('locatie-wijs', (e) => {
+    const ids = new Set((e.detail?.pools || []).map((p) => p.id));
+    let eerste = null;
+    for (const [id, rij] of rijen) {
+      const aan = ids.has(id);
+      rij.toggleAttribute('selected', aan);
+      if (aan && !eerste) eerste = rij;
+    }
+    // Alleen naast elkaar: scrol de lijstkolom (niet de pagina) naar de eerste rij.
+    if (eerste && breed.matches) {
+      const rol = lijstRol.getBoundingClientRect();
+      const r = eerste.getBoundingClientRect();
+      if (r.top < rol.top || r.bottom > rol.bottom) {
+        lijstRol.scrollBy({ top: r.top - rol.top - 8, behavior: 'smooth' });
+      }
+    }
+  });
 
   // ── Kaart of lijst ───────────────────────────────────────────────────────────
 
   // Eén van de twee staat op de plek van de kaart; de keuze staat in de URL
   // (#lijst), zodat terugkomen of een gedeelde link dezelfde weergave toont.
+  // Vanaf 1280px staan ze naast elkaar en geldt de keuze niet.
+  let gekozen = 'kaart';
+
+  function pasWeergaveToe() {
+    const lijstGekozen = gekozen === 'lijst';
+    kaart.hidden = !breed.matches && lijstGekozen;
+    lijstweergave.hidden = !breed.matches && !lijstGekozen;
+    // Het detailvenster opent naast elkaar links, over de filters, zodat de lijst zichtbaar blijft.
+    if (breed.matches) {
+      venster.setAttribute('left', '16px');
+      venster.removeAttribute('right');
+    } else {
+      venster.setAttribute('right', '16px');
+      venster.removeAttribute('left');
+    }
+    // De skiplink gaat naar wat er te zien is: de lijst, of de schakelaar ervoor.
+    skiplink.setAttribute('href', breed.matches ? '#resultaten' : '#weergave');
+  }
+
   function toonWeergave(keuze) {
-    const lijstGekozen = keuze === 'lijst';
-    kaart.hidden = lijstGekozen;
-    lijstweergave.hidden = !lijstGekozen;
+    gekozen = keuze;
     if (weergave.value !== keuze) weergave.value = keuze;
-    history.replaceState(null, '', lijstGekozen ? '#lijst' : location.pathname + location.search);
+    history.replaceState(null, '', keuze === 'lijst' ? '#lijst' : location.pathname + location.search);
+    pasWeergaveToe();
   }
 
   weergave.addEventListener('change', (e) => {
     toonWeergave(e.detail?.value ?? weergave.value);
   });
+  breed.addEventListener('change', pasWeergaveToe);
 
-  if (location.hash === '#lijst') toonWeergave('lijst');
+  toonWeergave(location.hash === '#lijst' ? 'lijst' : 'kaart');
 
   // ── Details in een venster───────────────────────────────────────────────────
 
