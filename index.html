@@ -96,15 +96,27 @@
           </nldd-container>
 
           <nldd-spacer size="24"></nldd-spacer>
-          <!-- Toont of verbergt de lijst met pools naast de kaart (js/app.js wisselt tekst en expanded) -->
-          <nldd-button
-            id="toon-lijst"
-            text="Toon lijst"
-            appearance="primary"
-            size="sm"
-            start-icon="bullet-list"
-            aria-controls="lijstpaneel"
-          ></nldd-button>
+          <nldd-container layout="wrap" gap="8" vertical-alignment="center">
+            <!-- Toont of verbergt de lijst met pools naast de kaart (js/app.js wisselt tekst en expanded) -->
+            <nldd-button
+              id="toon-lijst"
+              text="Toon lijst"
+              appearance="primary"
+              size="sm"
+              start-icon="bullet-list"
+              aria-controls="lijstpaneel"
+            ></nldd-button>
+            <!-- Zet de zoekterm en alle filterlabels in één keer terug. Alleen zichtbaar zolang
+                 er iets aanstaat (js/app.js). Secundair: "Toon lijst" is de ene gevulde knop. -->
+            <nldd-button
+              id="wis-filters"
+              class="wis-filters"
+              text="Wis alle filters"
+              appearance="accent-transparent"
+              size="sm"
+              hidden
+            ></nldd-button>
+          </nldd-container>
         </nldd-container>
         </nldd-box>
         </digipool-paneel>
@@ -142,7 +154,16 @@
                     text="Geen pools gevonden"
                     supporting-text="Pas je zoekopdracht of filters aan."
                     hidden
-                  ></nldd-inline-dialog>
+                  >
+                    <!-- Hier is de knop het hardst nodig: niets past meer bij de filters. -->
+                    <nldd-button
+                      slot="actions"
+                      class="wis-filters"
+                      text="Wis alle filters"
+                      appearance="secondary"
+                      size="sm"
+                    ></nldd-button>
+                  </nldd-inline-dialog>
                 </nldd-container>
               </digipool-details>
             </nldd-box>

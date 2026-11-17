@@ -153,6 +153,27 @@
     toonLijst.focus();
   });
 
+  // ── Alle filters wissen ──────────────────────────────────────────────────────
+
+  // Eén knop onder de filters en één in "Geen pools gevonden". Beide zetten de zoekterm
+  // en alle filterlabels terug; de focus gaat naar het zoekveld, zodat toetsenbord- en
+  // schermlezergebruikers bovenaan de filters verder kunnen.
+  const wisFilters = $('#wis-filters');
+  function wisAlles() {
+    toestand.zoekterm = '';
+    toestand.organisaties.clear();
+    toestand.vakgebieden.clear();
+    zoeken.value = '';
+    for (const knop of document.querySelectorAll('nldd-toggle-button[selected]')) {
+      knop.removeAttribute('selected');
+    }
+    werkBij();
+    zoeken.focus();
+  }
+  for (const knop of document.querySelectorAll('.wis-filters')) {
+    knop.addEventListener('click', wisAlles);
+  }
+
   // ── Alles bijwerken ──────────────────────────────────────────────────────────
 
   function werkBij() {
@@ -160,6 +181,7 @@
     const ids = new Set(zichtbaar.map((p) => p.id));
     for (const [id, rij] of rijen) rij.hidden = !ids.has(id);
     geenResultaten.hidden = zichtbaar.length > 0;
+    wisFilters.hidden = !isGefilterd();
 
     kaart.pools = zichtbaar;
     zetKnoptekst(zichtbaar.length);
