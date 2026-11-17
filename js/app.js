@@ -36,69 +36,15 @@
 
   // ── Filterknoppen ────────────────────────────────────────────────────────────
 
-  // vorm 'lijst': een rij per optie met een checkbox (patroon "filteren" van NLDD).
-  // vorm 'knoppen': filterlabels als toggle buttons.
+  // Beide groepen als filterlabels (toggle buttons), met het aantal pools erachter.
   const groepen = [
-    { sleutel: 'organisaties', vorm: 'lijst', opties: window.ORGANISATIES, doel: '#filter-organisaties', label: 'Voor welke organisaties?' },
-    { sleutel: 'vakgebieden', vorm: 'knoppen', opties: window.VAKGEBIEDEN, doel: '#filter-vakgebieden', label: 'Vakgebied' },
+    { sleutel: 'organisaties', opties: window.ORGANISATIES, doel: '#filter-organisaties', label: 'Voor welke organisaties?' },
+    { sleutel: 'vakgebieden', opties: window.VAKGEBIEDEN, doel: '#filter-vakgebieden', label: 'Vakgebied' },
   ];
 
   const telPools = (groep, optie) => pools.filter((p) => p[groep.sleutel].includes(optie)).length;
 
-  for (const groep of groepen.filter((g) => g.vorm === 'lijst')) {
-    const lijstFilter = maak('nldd-list', {
-      appearance: 'simple',
-      dividers: 'never',
-      'accessible-label': groep.label,
-      'data-groep': groep.sleutel,
-    });
-    for (const optie of groep.opties) {
-      // De rij is de checkbox; het vinkje erin toont alleen de staat.
-      const vinkje = maak('nldd-checkbox', { decorative: true, color: 'inherit' });
-      const rij = maak('nldd-list-item', { checkbox: true, size: 'sm', 'data-waarde': optie }, [
-        maak('nldd-cell', {}, [vinkje]),
-        maak('nldd-spacer-cell', { size: '8' }),
-        maak('nldd-text-cell', { text: optie }),
-        maak('nldd-spacer-cell', { size: '8' }),
-        maak('nldd-text-cell', {
-          width: 'fit-content',
-          'horizontal-alignment': 'right',
-          color: 'secondary',
-          text: String(telPools(groep, optie)),
-        }),
-      ]);
-      rij.addEventListener('change', (e) => {
-        const aan = e.detail?.checked ?? rij.checked;
-        vinkje.toggleAttribute('checked', aan);
-        if (aan) toestand[groep.sleutel].add(optie);
-        else toestand[groep.sleutel].delete(optie);
-        werkBij();
-      });
-      lijstFilter.append(rij);
-    }
-
-    // Wist alleen de vinkjes van deze groep, niet de andere filters of de zoekterm.
-    // Alleen zichtbaar als er iets is aangevinkt (zie werkBij).
-    // Let op: NLDD raadt een knop die alles wist af (lint-regel filter-no-clear-all), want één
-    // misklik kost de hele selectie. Bewust gekozen op verzoek; daarom beperkt tot deze groep.
-    const wisKnop = maak('nldd-button', {
-      text: 'Selectie wissen',
-      appearance: 'accent-transparent',
-      size: 'sm',
-      'data-wis': groep.sleutel,
-      hidden: true,
-    });
-    wisKnop.addEventListener('click', () => {
-      for (const waarde of [...toestand[groep.sleutel]]) zetKnop(groep.sleutel, waarde, false);
-      toestand[groep.sleutel].clear();
-      werkBij();
-      // De knop verdwijnt; zet de focus op de eerste optie zodat hij niet wegvalt.
-      lijstFilter.querySelector('nldd-list-item')?.focus();
-    });
-    $(groep.doel).append(lijstFilter, wisKnop);
-  }
-
-  for (const groep of groepen.filter((g) => g.vorm === 'knoppen')) {
+  for (const groep of groepen) {
     const knoppen = maak('nldd-toggle-button-group', {
       type: 'checkbox',
       size: 'sm',
@@ -119,21 +65,6 @@
       werkBij();
     });
     $(groep.doel).append(knoppen);
-  }
-
-  function zetKnop(sleutel, waarde, aan) {
-    const rij = document.querySelector(
-      `nldd-list[data-groep="${sleutel}"] nldd-list-item[data-waarde="${CSS.escape(waarde)}"]`,
-    );
-    if (rij) {
-      rij.toggleAttribute('checked', aan);
-      rij.querySelector('nldd-checkbox')?.toggleAttribute('checked', aan);
-      return;
-    }
-    const knop = document.querySelector(
-      `nldd-toggle-button-group[data-groep="${sleutel}"] nldd-toggle-button[value="${CSS.escape(waarde)}"]`,
-    );
-    if (knop) knop.toggleAttribute('selected', aan);
   }
 
   // ── Zoeken ───────────────────────────────────────────────────────────────────
@@ -232,9 +163,6 @@
 
     kaart.pools = zichtbaar;
     zetKnoptekst(zichtbaar.length);
-    for (const knop of document.querySelectorAll('nldd-button[data-wis]')) {
-      knop.hidden = toestand[knop.dataset.wis].size === 0;
-    }
 
     aantal.setAttribute('text', isGefilterd()
       ? `${zichtbaar.length} van ${pools.length} pools`

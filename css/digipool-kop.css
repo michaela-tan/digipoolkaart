@@ -86,36 +86,6 @@ digipool-paneel {
 }
 
 /*
- * <digipool-filterlijst>: om de lijst met organisaties (een rij met checkbox per optie).
- * De tekst in de rijen krijgt dezelfde kleur als de tekst van de filterlabels hierboven.
- * Let op: dit is een variabele van het designsysteem, controleer hem bij een update.
- */
-digipool-filterlijst {
-  display: block;
-  --semantics-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
-
-  /*
-   * Rijen bij aanwijzen, indrukken, aanvinken en toetsenbordfocus in de mintgroene tinten
-   * van de filterlabels, in plaats van grijs. De tekst blijft donkerblauw (#003660):
-   * contrast 9,1:1 op #B9E7D7 en 8,0:1 op #9EDDC8, ruim boven de 4,5:1 van WCAG.
-   * Bewust niet de paginakleur #D5F1E9 voor aanwijzen: die verschilt nauwelijks van het
-   * lichtblauwe paneel (1,02:1), dan zie je de hover bijna niet.
-   */
-  --semantics-list-items-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
-  --semantics-list-items-is-hovered-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
-  --semantics-list-items-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
-  --semantics-list-items-is-active-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
-  --semantics-list-items-is-selected-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-100));
-  --semantics-list-items-is-selected-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
-  --semantics-list-items-is-selected-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
-  --semantics-list-items-is-selected-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
-  --semantics-list-items-is-highlighted-background-color: light-dark(#D5F1E9, var(--primitives-color-mintgroen-100));
-  --semantics-list-items-is-highlighted-content-color: light-dark(#003660, var(--primitives-color-mintgroen-900));
-  --semantics-list-items-is-highlighted-is-hovered-background-color: light-dark(#B9E7D7, var(--primitives-color-mintgroen-150));
-  --semantics-list-items-is-highlighted-is-active-background-color: light-dark(#9EDDC8, var(--primitives-color-mintgroen-200));
-}
-
-/*
  * Tekstkleur van het paneel: donkerblauw. De kopjes (nldd-title color="inherit") nemen deze
  * kleur over; de witte kop (digipool-kop) zet zijn eigen kleur. In donkere modus licht.
  */
