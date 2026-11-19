@@ -67,6 +67,17 @@
     $(groep.doel).append(knoppen);
   }
 
+  // "Selecties wissen": zet alle filterlabels uit. De zoekterm blijft staan.
+  // De knop verdwijnt dan, dus de focus gaat naar de knop "Toon lijst" eronder.
+  const wisBlok = $('#wis-blok');
+  $('#wis-filters').addEventListener('click', () => {
+    for (const knop of document.querySelectorAll('[data-groep] nldd-toggle-button')) knop.selected = false;
+    toestand.organisaties.clear();
+    toestand.vakgebieden.clear();
+    werkBij();
+    $('#toon-lijst').focus();
+  });
+
   // ── Zoeken ───────────────────────────────────────────────────────────────────
 
   function opZoeken(e) {
@@ -100,15 +111,17 @@
 
   // ── Lijst ────────────────────────────────────────────────────────────────────
 
-  const rijen = new Map();
   // Op alfabetische volgorde van de naam (Nederlands, zonder onderscheid tussen hoofd- en kleine letters).
-  const opNaam = [...pools].sort((a, b) => a.naam.localeCompare(b.naam, 'nl', { sensitivity: 'base' }));
-  for (const pool of opNaam) {
-    // Een kaart per pool: de naam vet, rechts de plaats(en). De hele kaart is een knop.
+  const opNaam = (lijstVanPools) =>
+    [...lijstVanPools].sort((a, b) => a.naam.localeCompare(b.naam, 'nl', { sensitivity: 'base' }));
+
+  // Een kaart per pool: de naam vet, rechts de plaats(en). De hele kaart is een knop.
+  // Gebruikt in het poolsoverzicht en in het venster van een speld met meer pools.
+  function poolkaart(pool, opKlik) {
     const plaatsKort = pool.locaties.length > 1
       ? `${pool.locaties[0].plaats} +${pool.locaties.length - 1}`
       : pool.locaties[0].plaats;
-    const rij = maak('nldd-card', {
+    const kaartje = maak('nldd-card', {
       button: true,
       background: 'accent-tinted',
       'accessible-label': `${pool.naam}, ${plaatsen(pool)}`,
@@ -124,7 +137,13 @@
         ]),
       ]),
     ]);
-    rij.addEventListener('click', () => {
+    kaartje.addEventListener('click', opKlik);
+    return kaartje;
+  }
+
+  const rijen = new Map();
+  for (const pool of opNaam(pools)) {
+    const rij = poolkaart(pool, () => {
       toonDetails(pool.naam, [pool]);
       kies(pool.id);
     });
@@ -160,6 +179,7 @@
     const ids = new Set(zichtbaar.map((p) => p.id));
     for (const [id, rij] of rijen) rij.hidden = !ids.has(id);
     geenResultaten.hidden = zichtbaar.length > 0;
+    wisBlok.hidden = !(toestand.organisaties.size || toestand.vakgebieden.size);
 
     kaart.pools = zichtbaar;
     zetKnoptekst(zichtbaar.length);
@@ -249,9 +269,15 @@
     return blok;
   }
 
-  // Eén pool: de naam staat in de titelbalk. Meer pools op één plaats: de plaats
-  // in de titelbalk en per pool een eigen kop, gescheiden door een lijn.
-  function toonDetails(titel, lijstVanPools) {
+  // Waar de terugknop in de titelbalk heen gaat: de lijst van de speld waar de
+  // gebruiker vandaan kwam. null: geen terugknop.
+  let terugNaar = null;
+
+  // Eén pool: de naam staat in de titelbalk, eronder alle gegevens.
+  // Meer pools op één plaats: de plaats in de titelbalk en de pools als lijst met
+  // kaarten, zoals het poolsoverzicht. Een klik op een kaart toont die pool, met
+  // een terugknop naar de lijst.
+  function toonDetails(titel, lijstVanPools, vanuit = null) {
     const n = lijstVanPools.length;
     const enkel = n === 1;
     const kop = enkel ? lijstVanPools[0].naam : titel;
@@ -261,21 +287,33 @@
     vensterKop.setAttribute('text', kop);
     vensterKop.setAttribute('supporting-text', onder);
 
-    const blokken = [];
-    lijstVanPools.forEach((pool, i) => {
-      if (i === 0 && !enkel) blokken.push(maak('nldd-spacer', { size: '16' }));
-      if (i > 0) {
-        blokken.push(
-          maak('nldd-spacer', { size: '32' }),
-          maak('nldd-divider'),
-          maak('nldd-spacer', { size: '32' }),
-        );
-      }
-      blokken.push(...poolBlok(pool, !enkel));
-    });
-    vensterInhoud.replaceChildren(...blokken);
+    terugNaar = vanuit;
+    if (vanuit) vensterTitel.setAttribute('back-text', vanuit.titel);
+    else vensterTitel.removeAttribute('back-text');
+
+    if (enkel) {
+      vensterInhoud.replaceChildren(...poolBlok(lijstVanPools[0], false));
+    } else {
+      const kaartjes = opNaam(lijstVanPools).map((pool) =>
+        poolkaart(pool, () => {
+          toonDetails(pool.naam, [pool], { titel, pools: lijstVanPools });
+          kies(pool.id);
+        }));
+      vensterInhoud.replaceChildren(
+        maak('nldd-spacer', { size: '8' }),
+        maak('digipool-poolkaarten', {}, [maak('nldd-container', { gap: '8' }, kaartjes)]),
+      );
+    }
     venster.open = true;
   }
+
+  // Terugknop in de titelbalk: weer de lijst van de speld.
+  vensterTitel.addEventListener('back', () => {
+    if (!terugNaar) return;
+    const { titel, pools: vorige } = terugNaar;
+    kies(null);
+    toonDetails(titel, vorige);
+  });
 
   // Gekozen pool uit het overzicht: die kaart in de lijst krijgt een andere kleur
   // (data-gekozen, zie css/digipool-kop.css) en op de kaart staan alleen zijn spelden.

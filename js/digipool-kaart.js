@@ -150,10 +150,12 @@
         );
 
         if (pools.length > 1) {
+          // Het aantal als badge midden boven óp de speldkop, half eroverheen,
+          // zodat het zichtbaar bij deze speld hoort en niet los erboven zweeft.
           g.append(
-            el('circle', { class: 'digipool-kaart__aantal-bol', cx: 0, cy: -46, r: 11 }),
+            el('circle', { class: 'digipool-kaart__aantal-bol', cx: 0, cy: -37, r: 11 }),
           );
-          const tekst = el('text', { class: 'digipool-kaart__aantal', x: 0, y: -46 });
+          const tekst = el('text', { class: 'digipool-kaart__aantal', x: 0, y: -37 });
           tekst.textContent = String(pools.length);
           g.append(tekst);
         }

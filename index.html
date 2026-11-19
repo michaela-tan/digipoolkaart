@@ -96,6 +96,17 @@
           </nldd-container>
 
           <nldd-spacer size="24"></nldd-spacer>
+          <!-- Zet alle filterlabels uit; alleen zichtbaar als er een filter aanstaat (js/app.js) -->
+          <nldd-container id="wis-blok" hidden>
+            <nldd-button
+              id="wis-filters"
+              text="Selecties wissen"
+              appearance="accent-transparent"
+              size="sm"
+              start-icon="close"
+            ></nldd-button>
+            <nldd-spacer size="12"></nldd-spacer>
+          </nldd-container>
           <!-- Toont of verbergt de lijst met pools naast de kaart (js/app.js wisselt tekst en expanded) -->
           <nldd-button
             id="toon-lijst"
