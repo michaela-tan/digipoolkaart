@@ -5,7 +5,7 @@
 //   naam, organisatie        naam van de pool en de organisatie erachter (in de lijst en het venster)
 //   locaties                 een of meer plaatsen op de kaart: { plaats, lat, lon }.
 //                            Pools op dezelfde plaats delen één markering met het aantal erop.
-//   organisaties             filter "Voor welke organisaties?": een of meer van ORGANISATIES
+//   organisaties             filter "Voor welke organisaties?" (kolom Voor welke organisaties): een of meer van ORGANISATIES
 //   vakgebieden              filter "Vakgebied" en de labels in het venster: een of meer van VAKGEBIEDEN
 //   omschrijving             kolom Dienstverlening
 //   expertise                kolom Vakgebied
@@ -13,9 +13,13 @@
 //   email, telefoon, contactpagina, website       contactgegevens; elk veld is optioneel
 //
 // Een leeg of ontbrekend veld verdwijnt vanzelf uit het venster.
-// De filters (organisaties en vakgebieden) staan niet in de Excel en zijn ingedeeld op basis
-// van de kolommen Doelgroep en Vakgebied. Controleer ze als de lijst verandert.
+// Het filter "Voor welke organisaties?" komt uit de gelijknamige kolom van de Excel.
+// Het filter Vakgebied staat niet in de Excel en is ingedeeld op basis van de kolom Vakgebied.
+// Controleer het als de lijst verandert.
+// Een pool zonder locaties staat wel in de lijst, maar (nog) niet op de kaart.
 
+// Waterschappen en Overheidsbreed staan (nog) niet in de Excel-kolom, maar blijven als filter staan:
+// de kolom wordt later aangevuld.
 window.ORGANISATIES = ['Gemeente', 'Provincies', 'Waterschappen', 'Rijksoverheid', 'Overheidsbreed'];
 window.VAKGEBIEDEN = ['Data', 'AI', 'Software', 'Security', 'Architectuur', 'Beheer', 'Informatie', 'Projecten'];
 
@@ -36,6 +40,10 @@ const PLAATSEN = {
   'Gouda': [52.0115, 4.7104],
   'Soesterberg': [52.1186, 5.2856],
   'Veenhuizen': [53.0406, 6.3956],
+  // Rijswijk ligt tegen Den Haag aan: zelfde punt, zodat beide één speld delen.
+  'Rijswijk': [52.0799, 4.3113],
+  'Apeldoorn': [52.2112, 5.9699],
+  'Winschoten': [53.1436, 7.0347],
 };
 
 function op(...plaatsen) {
@@ -133,7 +141,7 @@ window.DIGIPOOLS = [
     naam: 'ICTU',
     organisatie: 'Overheidsstichting van BZK en VNG',
     locaties: op('Den Haag'),
-    organisaties: ['Overheidsbreed'],
+    organisaties: ['Rijksoverheid'],
     vakgebieden: ['Projecten', 'Software', 'Informatie'],
     omschrijving: 'Adviseren, realiseren en begeleiden van projecten en programma’s op het gebied van digitale overheid.',
     expertise: 'Brede ICT-ondersteuning',
@@ -227,26 +235,26 @@ window.DIGIPOOLS = [
   },
   {
     id: 'rvihh',
-    naam: 'RvIHH',
-    organisatie: 'Rijksorganisatie voor Informatiehuishouding',
-    locaties: op('Den Haag'),
+    naam: 'Rijksorganisatie voor Informatiehuishouding (RvIHH)',
+    organisatie: 'Rijksorganisatie voor Informatiehuishouding, ministerie van BZK',
+    locaties: op('Den Haag', 'Rijswijk', 'Apeldoorn', 'Winschoten'),
     organisaties: ['Rijksoverheid'],
-    vakgebieden: ['Informatie'],
-    omschrijving: 'Rijksbreed expertise- en dienstencentrum voor informatiehuishouding. Levert generieke diensten en expertise rondom digitalisering en informatiehuishouding.',
-    expertise: 'DMS Digidoc Online, Zoek&Vind-applicatie, laktooling of de officiële digitale handtekening. Advies bij het op orde brengen van informatiehuishouding',
-    omvang: '75 IHH-adviseurs',
-    doelgroep: 'Rijksorganisaties binnen heel Nederland',
-    governance: 'Een van de zes departementsoverstijgende uitvoerende Shared Service Organisaties (SSO’s) van het Rijk',
-    financiering: 'Opdrachten worden uitgevoerd op basis van offertes/tarieven',
-    email: 'RvIHH.servicemanagement@minbzk.nl',
-    website: 'https://www.rvihh.nl/',
+    vakgebieden: ['Informatie', 'Data', 'AI', 'Projecten'],
+    omschrijving: 'Afdeling I-advies van RvIHH helpt overheidsorganisaties hun informatiehuishouding toekomstbestendig te maken met advies op maat over wet- en regelgeving (o.a. Archiefwet, AVG), technologie (AI, automatisering, duurzame IT), een mensgerichte aanpak en verbinding tussen beleid, uitvoering en IT, inclusief kennisdeling ten behoeve van zelfstandigheid van de zorgdragers.',
+    expertise: 'Informatiehuishouding, data, AI, Archiefwet, Woo, AVG, DMS, recordmanagement, opschonen netwerkschijven, trainingen, verandermanagement, procesontwerp, selectielijst, projecten',
+    omvang: '500 medewerkers, waarvan 80 adviseurs',
+    doelgroep: 'Rijksoverheid, Hoge Colleges van Staat, uitvoeringsorganisaties, zbo’s, agentschappen',
+    governance: 'RvIHH is onderdeel van DGVBR van BZK en functioneert als een baten-lastendienst',
+    financiering: 'RvIHH heeft een eigen begroting. Opdrachten worden conform de Producten- en Dienstencatalogus uitgevoerd op basis van offertes/tarieven',
+    email: 'RvIHH.Advies@minbzk.nl',
+    website: 'https://www.rvihh.nl/advies',
   },
   {
     id: 'rvo-project-agile',
     naam: 'RVO Project- en Agile Management',
     organisatie: 'Rijksdienst voor Ondernemend Nederland',
     locaties: op('Den Haag', 'Utrecht', 'Zwolle', 'Assen', 'Roermond'),
-    organisaties: ['Rijksoverheid', 'Provincies'],
+    organisaties: ['Rijksoverheid'],
     vakgebieden: ['Projecten', 'Informatie'],
     omschrijving: 'I-project- en agile programmamanagement.',
     expertise: 'Agile, IV',
@@ -336,7 +344,7 @@ window.DIGIPOOLS = [
     naam: 'Logius',
     organisatie: 'Agentschap van het ministerie van BZK',
     locaties: op('Den Haag'),
-    organisaties: ['Overheidsbreed', 'Rijksoverheid'],
+    organisaties: ['Rijksoverheid'],
     vakgebieden: ['Software', 'Beheer', 'Architectuur'],
     omschrijving: 'Ontwikkelt en beheert producten en diensten voor de digitale overheid. Beheert standaarden die alle overheidsorganisaties gebruiken in hun digitale dienstverlening. Is betrokken bij meerdere afsprakenstelsels.',
     expertise: 'Digitale diensten als DigiD, Digipoort, MijnOverheid',
@@ -346,5 +354,14 @@ window.DIGIPOOLS = [
     financiering: 'Kosten worden doorberekend aan de interne klanten die diensten afnemen',
     contactpagina: 'https://www.logius.nl/contact',
     website: 'https://www.logius.nl/onze-dienstverlening',
+  },
+  {
+    // Nieuw in de Excel, nog zonder gegevens: alleen de naam. Zonder plaats staat de pool
+    // wel in de lijst, maar niet op de kaart. Vul de velden aan zodra ze bekend zijn.
+    id: 'ppm-duo',
+    naam: 'PPM DUO',
+    locaties: [],
+    organisaties: [],
+    vakgebieden: [],
   },
 ];

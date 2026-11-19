@@ -118,13 +118,14 @@
   // Een kaart per pool: de naam vet, rechts de plaats(en). De hele kaart is een knop.
   // Gebruikt in het poolsoverzicht en in het venster van een speld met meer pools.
   function poolkaart(pool, opKlik) {
+    // Zonder plaats (nog geen gegevens) blijft de rechterkant leeg.
     const plaatsKort = pool.locaties.length > 1
       ? `${pool.locaties[0].plaats} +${pool.locaties.length - 1}`
-      : pool.locaties[0].plaats;
+      : pool.locaties[0]?.plaats ?? '';
     const kaartje = maak('nldd-card', {
       button: true,
       background: 'accent-tinted',
-      'accessible-label': `${pool.naam}, ${plaatsen(pool)}`,
+      'accessible-label': pool.locaties.length ? `${pool.naam}, ${plaatsen(pool)}` : pool.naam,
       'data-id': pool.id,
     }, [
       maak('nldd-container', { layout: 'row', gap: '12', padding: '12', 'padding-inline': '16', 'vertical-alignment': 'center' }, [
@@ -209,6 +210,18 @@
   // een scheidingslijn, de gegevens en een knop naar de website.
   function poolBlok(pool, metTitel) {
     const blok = [];
+    // Een nieuwe pool waarvan alleen de naam bekend is: dan alleen een korte melding.
+    const heeftGegevens = ['omschrijving', 'organisatie', 'expertise', 'omvang', 'doelgroep', 'governance',
+      'financiering', 'email', 'telefoon', 'contactpagina', 'website'].some((veld) => pool[veld]);
+    if (!heeftGegevens) {
+      return [
+        maak('nldd-inline-dialog', {
+          icon: 'info',
+          text: 'Nog geen gegevens',
+          'supporting-text': 'Van deze pool zijn nog geen gegevens bekend.',
+        }),
+      ];
+    }
     if (metTitel) {
       blok.push(
         maak('nldd-title', { text: pool.naam, 'heading-level': '3', size: 'display-5', color: 'inherit' }),
@@ -283,9 +296,12 @@
     const kop = enkel ? lijstVanPools[0].naam : titel;
     const onder = enkel ? plaatsen(lijstVanPools[0]) : `${n} pools`;
     vensterTitel.setAttribute('text', kop);
-    vensterTitel.setAttribute('supporting-text', onder);
     vensterKop.setAttribute('text', kop);
-    vensterKop.setAttribute('supporting-text', onder);
+    // Een pool zonder plaats heeft geen tekst onder de titel.
+    for (const el of [vensterTitel, vensterKop]) {
+      if (onder) el.setAttribute('supporting-text', onder);
+      else el.removeAttribute('supporting-text');
+    }
 
     terugNaar = vanuit;
     if (vanuit) vensterTitel.setAttribute('back-text', vanuit.titel);

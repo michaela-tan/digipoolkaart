@@ -109,15 +109,23 @@
       if (!this._markeringen) return;
       this._markeringen.replaceChildren();
 
-      // Groepeer per plaats. Een pool met meer locaties staat bij elke plaats.
-      const groepen = new Map();
+      // Groepeer per punt op de kaart. Een pool met meer locaties staat bij elk punt.
+      // Plaatsen op hetzelfde punt (zoals Den Haag en Rijswijk) delen één speld;
+      // het label noemt dan beide: "Den Haag en Rijswijk". Een pool telt per punt één keer.
+      const perPunt = new Map();
       const gekozenPool = this._gekozen?.pool;
       for (const pool of this._pools) {
         for (const locatie of pool.locaties) {
-          if (!groepen.has(locatie.plaats)) groepen.set(locatie.plaats, { locatie, pools: [] });
-          groepen.get(locatie.plaats).pools.push(pool);
+          const punt = `${locatie.lat},${locatie.lon}`;
+          if (!perPunt.has(punt)) perPunt.set(punt, { locatie, namen: [], pools: [] });
+          const groep = perPunt.get(punt);
+          if (!groep.namen.includes(locatie.plaats)) groep.namen.push(locatie.plaats);
+          if (!groep.pools.includes(pool)) groep.pools.push(pool);
         }
       }
+      const groepen = new Map(
+        [...perPunt.values()].map((g) => [g.namen.join(' en '), g]),
+      );
 
       // Van noord naar zuid tekenen, zodat zuidelijke spelden er bovenop liggen.
       // Spelden met de gekozen pool als laatste, zodat ze boven de andere liggen.
