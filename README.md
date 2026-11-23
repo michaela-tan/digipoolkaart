@@ -1,6 +1,6 @@
 # Digipoolkaart
 
-Een kaart van Nederland met de pools voor flexibele inzet van digitaliseringspersoneel, met zoeken en filteren op organisatie en vakgebied. Gebouwd met het [NLDD Designsysteem](https://nederlandsedigitaledienst.github.io/design-system/) (`@nldd/design-system` 0.22.0).
+Een kaart van Nederland met de digitaliseringspools binnen de overheid, met zoeken en filteren op organisatie en vakgebied. Gebouwd met het [NLDD Designsysteem](https://nederlandsedigitaledienst.github.io/design-system/) (`@nldd/design-system` 0.22.0).
 
 ## Bekijken
 
