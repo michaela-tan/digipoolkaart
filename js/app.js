@@ -212,7 +212,7 @@
     const blok = [];
     // Een nieuwe pool waarvan alleen de naam bekend is: dan alleen een korte melding.
     const heeftGegevens = ['omschrijving', 'organisatie', 'expertise', 'omvang', 'doelgroep', 'governance',
-      'financiering', 'email', 'telefoon', 'contactpagina', 'website'].some((veld) => pool[veld]);
+      'financiering', 'email', 'telefoon', 'contactpagina', 'website', 'contactpersonen'].some((veld) => pool[veld]);
     if (!heeftGegevens) {
       return [
         maak('nldd-inline-dialog', {
@@ -253,6 +253,13 @@
     if (pool.email) contact.push(maak('nldd-link', { href: `mailto:${pool.email}`, text: pool.email, size: 'sm' }));
     if (pool.contactpagina) contact.push(maak('nldd-link', { href: pool.contactpagina, text: 'Contactpagina', size: 'sm' }));
     if (pool.telefoon) contact.push(tekst(pool.telefoon));
+    // Contactpersonen onder de algemene gegevens: naam en rol, e-mail, telefoon.
+    for (const persoon of pool.contactpersonen ?? []) {
+      if (contact.length) contact.push(maak('nldd-spacer', { size: '8' }));
+      contact.push(tekst(persoon.rol ? `${persoon.naam}, ${persoon.rol}` : persoon.naam));
+      if (persoon.email) contact.push(maak('nldd-link', { href: `mailto:${persoon.email}`, text: persoon.email, size: 'sm' }));
+      if (persoon.telefoon) contact.push(tekst(persoon.telefoon));
+    }
 
     blok.push(
       maak('nldd-container', { gap: '16' }, [
