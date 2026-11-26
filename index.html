@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Digipoolkaart – digitaliseringspools binnen de overheid</title>
-  <meta name="description" content="Ontdek digitaliseringspools binnen de overheid. Klik op een locatie op de kaart voor meer informatie of gebruik de filters.">
+  <meta id="beschrijving" name="description" content="Ontdek digitaliseringspools binnen de overheid. Klik op een locatie op de kaart voor meer informatie of gebruik de filters.">
 
   <!-- NLDD Designsysteem: stijlen (tokens + RijksSans) en de autoloader die elk nldd-* component laadt zodra het op de pagina staat. -->
   <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/npm/@nldd/design-system@0.22.0/dist/favicon.svg">
@@ -37,19 +37,30 @@
         <nldd-box background="accent-tinted">
         <digipool-kop>
           <nldd-container padding="24" padding-bottom="20">
+            <!-- De teksten hieronder staan ook in data/teksten.json (beheer: /admin/); js/app.js zet die erin. -->
             <nldd-title
+              id="kop-titel"
               text="Ontdek digitaliseringspools binnen de overheid"
               heading-level="1"
               size="display-5"
               color="inherit"
             ></nldd-title>
             <nldd-spacer size="8"></nldd-spacer>
-            <nldd-text size="sm" color="inherit">
+            <nldd-text id="kop-subtitel" size="sm" color="inherit">
               Klik op een locatie op de kaart voor meer informatie of gebruik de filters.
             </nldd-text>
           </nldd-container>
         </digipool-kop>
         <nldd-container padding="16" padding-bottom="8">
+          <!-- Alleen zichtbaar als de gegevens niet geladen konden worden (js/app.js) -->
+          <nldd-container id="laadfout" hidden>
+            <nldd-banner
+              variant="critical"
+              text="De pools konden niet worden geladen"
+              supporting-text="Vernieuw de pagina of probeer het later opnieuw."
+            ></nldd-banner>
+            <nldd-spacer size="16"></nldd-spacer>
+          </nldd-container>
           <nldd-skip-link
             id="filters-overslaan"
             text="Sla filters over"
@@ -57,6 +68,7 @@
           ></nldd-skip-link>
 
           <nldd-title
+            id="kop-zoeken"
             size="display-6"
             text="Zoeken"
             heading-level="2"
@@ -72,6 +84,7 @@
           <nldd-spacer size="24"></nldd-spacer>
 
           <nldd-title
+            id="kop-organisaties"
             size="display-6"
             text="Voor welke organisaties?"
             heading-level="2"
@@ -85,6 +98,7 @@
           <nldd-spacer size="24"></nldd-spacer>
 
           <nldd-title
+            id="kop-vakgebieden"
             size="display-6"
             text="Vakgebied"
             heading-level="2"
@@ -196,9 +210,10 @@
   </nldd-window>
   </digipool-venster>
 
-  <!-- Gewone scripts (geen modules), zodat de pagina ook direct vanaf schijf werkt. -->
+  <!-- Gewone scripts (geen modules). De gegevens komen uit data/*.json, dus open de pagina via een
+       webserver, niet direct vanaf schijf (zie README). -->
+  <!-- De pools, plaatsen, filters en teksten laadt js/app.js uit data/*.json. -->
   <script src="js/kaart-nederland.js"></script>
-  <script src="js/pools.js"></script>
   <script src="js/digipool-kaart.js"></script>
   <script src="js/app.js"></script>
 </body>

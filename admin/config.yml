@@ -1,0 +1,201 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.262.1/schema/sveltia-cms.json
+#
+# Instellingen van de beheeromgeving (Sveltia CMS) op /admin/.
+# Hier staat welke bestanden beheerders kunnen aanpassen en welke velden ze daarbij zien.
+# Opslaan in de beheeromgeving maakt een commit op main; GitHub Pages zet die daarna live.
+#
+# De site leest dezelfde bestanden (js/app.js):
+#   data/pools.json     de pools, een object per pool
+#   data/teksten.json   teksten op de pagina
+#   data/filters.json   de filterlabels; pools verwijzen ernaar met hun id
+#   data/plaatsen.json  de plaatsen op de kaart; pools verwijzen ernaar met hun id
+#
+# Een filterlabel of plaats heeft een vaste id. Zo kan de naam veranderen zonder dat de
+# pools die ernaar verwijzen hoeven te worden aangepast.
+
+backend:
+  name: github
+  repo: michaela-tan/digipoolkaart
+  branch: main
+  # Inloggen met een toegangstoken (zie BEHEER.md). De knop "Inloggen met GitHub" werkt pas
+  # met een eigen inlogdienst (base_url); voeg dan oauth toe.
+  auth_methods: [token]
+  commit_messages:
+    create: 'Beheer: nieuw in {{collection}}'
+    update: 'Beheer: {{collection}} bijgewerkt'
+    delete: 'Beheer: verwijderd uit {{collection}}'
+    uploadMedia: 'Beheer: bestand "{{path}}" toegevoegd'
+    deleteMedia: 'Beheer: bestand "{{path}}" verwijderd'
+
+# Verplicht, maar de kaart gebruikt (nog) geen afbeeldingen.
+media_folder: /data/afbeeldingen
+public_folder: /data/afbeeldingen
+
+# Lege velden niet opslaan: de kaart laat een ontbrekend veld vanzelf weg.
+output:
+  omit_empty_optional_fields: true
+
+# Geen voorbeeldkolom naast het formulier: die toont alleen de ruwe gegevens, niet de kaart.
+editor:
+  preview: false
+
+collections:
+  - name: pools
+    label: Pools
+    label_singular: Pool
+    description: Alle pools op de kaart. Klik op een pool om de gegevens aan te passen.
+    file: /data/pools.json
+    identifier_field: naam
+    summary: '{{naam}}'
+    sortable_fields: [naam]
+    fields:
+      - name: naam
+        label: Naam van de pool
+      - name: organisatie
+        label: Organisatie
+        hint: De organisatie achter de pool, bijvoorbeeld "Agentschap van het ministerie van EZK".
+        required: false
+      - name: plaatsen
+        label: Plaatsen op de kaart
+        hint: Staat de plaats er niet tussen? Voeg hem eerst toe onder Plaatsen. Zonder plaats staat de pool wel in de lijst, maar niet op de kaart.
+        widget: relation
+        collection: _singletons
+        file: plaatsen
+        value_field: plaatsen.*.id
+        display_fields: [plaatsen.*.naam]
+        search_fields: [plaatsen.*.naam]
+        multiple: true
+        required: false
+      - name: organisaties
+        label: Filter "Voor welke organisaties?"
+        hint: Bij welke filterlabels deze pool verschijnt.
+        widget: relation
+        collection: _singletons
+        file: filters
+        value_field: organisaties.*.id
+        display_fields: [organisaties.*.naam]
+        search_fields: [organisaties.*.naam]
+        multiple: true
+        required: false
+      - name: vakgebieden
+        label: Filter "Vakgebied"
+        hint: Bij welke filterlabels deze pool verschijnt. Ze staan ook als labels bovenin het venster van de pool.
+        widget: relation
+        collection: _singletons
+        file: filters
+        value_field: vakgebieden.*.id
+        display_fields: [vakgebieden.*.naam]
+        search_fields: [vakgebieden.*.naam]
+        multiple: true
+        required: false
+      - name: omschrijving
+        label: Dienstverlening
+        hint: De korte omschrijving bovenin het venster.
+        widget: text
+        required: false
+      - name: expertise
+        label: Vakgebied (tekst)
+        hint: Staat in het venster bij "Vakgebied".
+        widget: text
+        required: false
+      - { name: omvang, label: Omvang, widget: text, required: false }
+      - { name: doelgroep, label: Doelgroep, widget: text, required: false }
+      - { name: governance, label: Governance, widget: text, required: false }
+      - { name: financiering, label: Financiering, widget: text, required: false }
+      - name: email
+        label: E-mailadres
+        required: false
+      - name: telefoon
+        label: Telefoonnummer
+        required: false
+      - name: contactpagina
+        label: Link naar contactpagina
+        hint: Een volledig webadres, beginnend met https://
+        required: false
+        pattern: ['^https?://', 'Begin het webadres met https://']
+      - name: website
+        label: Website
+        hint: Een volledig webadres, beginnend met https://. In het venster komt dan de knop "Naar website".
+        required: false
+        pattern: ['^https?://', 'Begin het webadres met https://']
+      - name: contactpersonen
+        label: Contactpersonen
+        label_singular: contactpersoon
+        hint: Let op, deze gegevens staan openbaar op internet. Vraag de persoon eerst om toestemming.
+        widget: list
+        required: false
+        summary: '{{naam}}'
+        fields:
+          - { name: naam, label: Naam }
+          - { name: rol, label: Rol, required: false }
+          - { name: email, label: E-mailadres, required: false }
+          - { name: telefoon, label: Telefoonnummer, required: false }
+
+singletons:
+  - name: teksten
+    label: Paginateksten
+    file: /data/teksten.json
+    fields:
+      - name: paginatitel
+        label: Titel in het browsertabblad
+      - name: titel
+        label: Titel
+        hint: De grote titel in de blauwe kop.
+      - name: subtitel
+        label: Subtitel
+        hint: De tekst onder de titel. Zoekmachines tonen hem ook als beschrijving.
+        widget: text
+      - name: kopZoeken
+        label: Kopje boven het zoekveld
+      - name: zoekveldVoorbeeld
+        label: Voorbeeldtekst in het zoekveld
+        hint: Staat grijs in het lege zoekveld.
+      - name: kopOrganisaties
+        label: Kopje boven het filter voor organisaties
+      - name: kopVakgebieden
+        label: Kopje boven het filter voor vakgebieden
+
+  - name: filters
+    label: Filterlabels
+    file: /data/filters.json
+    fields:
+      - name: organisaties
+        label: Voor welke organisaties?
+        label_singular: label
+        hint: In deze volgorde staan de labels op de pagina. Een nieuwe naam geldt meteen voor alle pools met dit label.
+        widget: list
+        summary: '{{naam}}'
+        fields:
+          - { name: naam, label: Naam }
+          - { name: id, label: Vaste sleutel, widget: uuid, hint: Wordt vanzelf ingevuld. }
+      - name: vakgebieden
+        label: Vakgebied
+        label_singular: label
+        hint: In deze volgorde staan de labels op de pagina. Een nieuwe naam geldt meteen voor alle pools met dit label.
+        widget: list
+        summary: '{{naam}}'
+        fields:
+          - { name: naam, label: Naam }
+          - { name: id, label: Vaste sleutel, widget: uuid, hint: Wordt vanzelf ingevuld. }
+
+  - name: plaatsen
+    label: Plaatsen
+    file: /data/plaatsen.json
+    fields:
+      - name: plaatsen
+        label: Plaatsen
+        label_singular: plaats
+        hint: Plaatsen waar een pool kan staan. Pools op hetzelfde punt delen één speld op de kaart.
+        widget: list
+        summary: '{{naam}}'
+        fields:
+          - { name: naam, label: Naam }
+          - name: locatie
+            label: Plek op de kaart
+            hint: Zoek de plaats op of klik op de kaart.
+            widget: map
+            type: Point
+            decimals: 4
+            center: [5.3, 52.2]
+            zoom: 7
+          - { name: id, label: Vaste sleutel, widget: uuid, hint: Wordt vanzelf ingevuld. }

@@ -1,0 +1,104 @@
+{
+  "plaatsen": [
+    {
+      "id": "amersfoort",
+      "naam": "Amersfoort",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.3878,52.1561]}"
+    },
+    {
+      "id": "amsterdam",
+      "naam": "Amsterdam",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.8936,52.3728]}"
+    },
+    {
+      "id": "apeldoorn",
+      "naam": "Apeldoorn",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.9699,52.2112]}"
+    },
+    {
+      "id": "assen",
+      "naam": "Assen",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[6.5649,52.9925]}"
+    },
+    {
+      "id": "den-haag",
+      "naam": "Den Haag",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.3113,52.0799]}"
+    },
+    {
+      "id": "eindhoven",
+      "naam": "Eindhoven",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.4697,51.4416]}"
+    },
+    {
+      "id": "enschede",
+      "naam": "Enschede",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[6.8937,52.2215]}"
+    },
+    {
+      "id": "etten-leur",
+      "naam": "Etten-Leur",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.6356,51.5706]}"
+    },
+    {
+      "id": "gouda",
+      "naam": "Gouda",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.7104,52.0115]}"
+    },
+    {
+      "id": "groningen",
+      "naam": "Groningen",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[6.5665,53.2194]}"
+    },
+    {
+      "id": "hoorn",
+      "naam": "Hoorn",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.0597,52.6425]}"
+    },
+    {
+      "id": "oosterhout",
+      "naam": "Oosterhout",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.8597,51.6453]}"
+    },
+    {
+      "id": "rijswijk",
+      "naam": "Rijswijk",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.3113,52.0799]}"
+    },
+    {
+      "id": "roermond",
+      "naam": "Roermond",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.987,51.1942]}"
+    },
+    {
+      "id": "soesterberg",
+      "naam": "Soesterberg",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.2856,52.1186]}"
+    },
+    {
+      "id": "utrecht",
+      "naam": "Utrecht",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[5.1214,52.0907]}"
+    },
+    {
+      "id": "veenhuizen",
+      "naam": "Veenhuizen",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[6.3956,53.0406]}"
+    },
+    {
+      "id": "winschoten",
+      "naam": "Winschoten",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[7.0347,53.1436]}"
+    },
+    {
+      "id": "zevenbergen",
+      "naam": "Zevenbergen",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[4.6056,51.6447]}"
+    },
+    {
+      "id": "zwolle",
+      "naam": "Zwolle",
+      "locatie": "{\"type\":\"Point\",\"coordinates\":[6.083,52.5168]}"
+    }
+  ]
+}

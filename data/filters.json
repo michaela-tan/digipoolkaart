@@ -1,0 +1,58 @@
+{
+  "organisaties": [
+    {
+      "id": "gemeente",
+      "naam": "Gemeente"
+    },
+    {
+      "id": "provincies",
+      "naam": "Provincies"
+    },
+    {
+      "id": "waterschappen",
+      "naam": "Waterschappen"
+    },
+    {
+      "id": "rijksoverheid",
+      "naam": "Rijksoverheid"
+    },
+    {
+      "id": "overheidsbreed",
+      "naam": "Overheidsbreed"
+    }
+  ],
+  "vakgebieden": [
+    {
+      "id": "data",
+      "naam": "Data"
+    },
+    {
+      "id": "ai",
+      "naam": "AI"
+    },
+    {
+      "id": "software",
+      "naam": "Software"
+    },
+    {
+      "id": "security",
+      "naam": "Security"
+    },
+    {
+      "id": "architectuur",
+      "naam": "Architectuur"
+    },
+    {
+      "id": "beheer",
+      "naam": "Beheer"
+    },
+    {
+      "id": "informatie",
+      "naam": "Informatie"
+    },
+    {
+      "id": "projecten",
+      "naam": "Projecten"
+    }
+  ]
+}

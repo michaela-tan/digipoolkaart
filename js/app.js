@@ -3,9 +3,88 @@
 // Binnen een filtergroep is het "of" (Gemeente of Provincies), tussen groepen
 // "en" (organisatie én vakgebied én zoekterm). De kaart, de lijst, het aantal
 // en de filters zelf volgen allemaal uit dezelfde toestand.
+//
+// De gegevens staan in data/*.json en zijn aan te passen op /admin/ (zie admin/config.yml).
 
-(function () {
-  const pools = window.DIGIPOOLS;
+// Eén databestand ophalen. no-cache: de browser vraagt steeds of er een nieuwere versie is,
+// zodat een wijziging uit het beheer niet blijft hangen.
+async function laadJson(pad) {
+  const antwoord = await fetch(pad, { cache: 'no-cache' });
+  if (!antwoord.ok) throw new Error(`${pad}: ${antwoord.status}`);
+  return antwoord.json();
+}
+
+// Zet de bestanden om naar wat de pagina gebruikt. Een pool verwijst naar plaatsen en
+// filterlabels met hun id; hier worden dat plaatsen met coördinaten.
+async function laadGegevens() {
+  const [ruwePools, teksten, filters, { plaatsen = [] }] = await Promise.all([
+    laadJson('data/pools.json'),
+    laadJson('data/teksten.json'),
+    laadJson('data/filters.json'),
+    laadJson('data/plaatsen.json'),
+  ]);
+
+  // Een plaats bewaart zijn plek als GeoJSON-punt, [lengtegraad, breedtegraad].
+  // Een plaats zonder (geldige) plek slaat de kaart over.
+  const plaatsPerId = new Map();
+  for (const p of plaatsen) {
+    try {
+      const [lon, lat] = JSON.parse(p.locatie).coordinates;
+      if (Number.isFinite(lat) && Number.isFinite(lon)) plaatsPerId.set(p.id, { plaats: p.naam, lat, lon });
+    } catch {
+      // Geen of een onleesbare plek: niet op de kaart.
+    }
+  }
+
+  const pools = ruwePools
+    .filter((p) => p && p.naam)
+    .map((p, i) => ({
+      ...p,
+      id: `pool-${i}`,
+      locaties: (p.plaatsen ?? []).map((id) => plaatsPerId.get(id)).filter(Boolean),
+      organisaties: p.organisaties ?? [],
+      vakgebieden: p.vakgebieden ?? [],
+      contactpersonen: (p.contactpersonen ?? []).filter((c) => c && c.naam),
+    }));
+
+  return {
+    pools,
+    teksten,
+    organisaties: (filters.organisaties ?? []).filter((o) => o.id && o.naam),
+    vakgebieden: (filters.vakgebieden ?? []).filter((v) => v.id && v.naam),
+  };
+}
+
+// Teksten uit het beheer op de pagina zetten. Een leeg veld laat de tekst uit index.html staan.
+function zetTeksten(teksten) {
+  const zet = (selector, attribuut, waarde) => {
+    const el = document.querySelector(selector);
+    if (el && waarde) el.setAttribute(attribuut, waarde);
+  };
+  if (teksten.paginatitel) document.title = teksten.paginatitel;
+  zet('#beschrijving', 'content', teksten.subtitel);
+  zet('#kop-titel', 'text', teksten.titel);
+  if (teksten.subtitel) document.querySelector('#kop-subtitel').textContent = teksten.subtitel;
+  zet('#kop-zoeken', 'text', teksten.kopZoeken);
+  zet('#zoeken', 'placeholder', teksten.zoekveldVoorbeeld);
+  zet('#kop-organisaties', 'text', teksten.kopOrganisaties);
+  zet('#kop-vakgebieden', 'text', teksten.kopVakgebieden);
+}
+
+(async function () {
+  let gegevens;
+  try {
+    gegevens = await laadGegevens();
+  } catch (fout) {
+    console.error('Gegevens niet geladen:', fout);
+    document.querySelector('#laadfout').hidden = false;
+    return;
+  }
+  const { pools, teksten } = gegevens;
+  zetTeksten(teksten);
+
+  // De naam van een filterlabel bij zijn id, voor de labels in het venster.
+  const naamVan = new Map([...gegevens.organisaties, ...gegevens.vakgebieden].map((o) => [o.id, o.naam]));
 
   const toestand = {
     zoekterm: '',
@@ -37,12 +116,23 @@
   // ── Filterknoppen ────────────────────────────────────────────────────────────
 
   // Beide groepen als filterlabels (toggle buttons), met het aantal pools erachter.
+  // Een optie is { id, naam }: het label toont de naam, de pools verwijzen naar de id.
   const groepen = [
-    { sleutel: 'organisaties', opties: window.ORGANISATIES, doel: '#filter-organisaties', label: 'Voor welke organisaties?' },
-    { sleutel: 'vakgebieden', opties: window.VAKGEBIEDEN, doel: '#filter-vakgebieden', label: 'Vakgebied' },
+    {
+      sleutel: 'organisaties',
+      opties: gegevens.organisaties,
+      doel: '#filter-organisaties',
+      label: teksten.kopOrganisaties || 'Voor welke organisaties?',
+    },
+    {
+      sleutel: 'vakgebieden',
+      opties: gegevens.vakgebieden,
+      doel: '#filter-vakgebieden',
+      label: teksten.kopVakgebieden || 'Vakgebied',
+    },
   ];
 
-  const telPools = (groep, optie) => pools.filter((p) => p[groep.sleutel].includes(optie)).length;
+  const telPools = (groep, optie) => pools.filter((p) => p[groep.sleutel].includes(optie.id)).length;
 
   for (const groep of groepen) {
     const knoppen = maak('nldd-toggle-button-group', {
@@ -53,7 +143,7 @@
     });
     for (const optie of groep.opties) {
       // Achter het label het aantal pools met deze waarde, bijv. "Rijksoverheid (1)".
-      knoppen.append(maak('nldd-toggle-button', { text: `${optie} (${telPools(groep, optie)})`, value: optie }));
+      knoppen.append(maak('nldd-toggle-button', { text: `${optie.naam} (${telPools(groep, optie)})`, value: optie.id }));
     }
     knoppen.addEventListener('change', (e) => {
       const knop = e.target.closest('nldd-toggle-button');
@@ -212,7 +302,8 @@
     const blok = [];
     // Een nieuwe pool waarvan alleen de naam bekend is: dan alleen een korte melding.
     const heeftGegevens = ['omschrijving', 'organisatie', 'expertise', 'omvang', 'doelgroep', 'governance',
-      'financiering', 'email', 'telefoon', 'contactpagina', 'website', 'contactpersonen'].some((veld) => pool[veld]);
+      'financiering', 'email', 'telefoon', 'contactpagina', 'website'].some((veld) => pool[veld])
+      || pool.contactpersonen.length > 0;
     if (!heeftGegevens) {
       return [
         maak('nldd-inline-dialog', {
@@ -229,12 +320,14 @@
       );
     }
     if (pool.omschrijving) blok.push(tekst(pool.omschrijving), maak('nldd-spacer', { size: '16' }));
-    if (pool.vakgebieden.length) {
+    // Alleen labels die nog bestaan: een verwijderd filterlabel verdwijnt hier ook.
+    const vakgebieden = pool.vakgebieden.map((id) => naamVan.get(id)).filter(Boolean);
+    if (vakgebieden.length) {
       blok.push(
         maak(
           'nldd-container',
           { layout: 'wrap', gap: '8' },
-          pool.vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'paars' })),
+          vakgebieden.map((v) => maak('nldd-tag', { text: v, color: 'paars' })),
         ),
         maak('nldd-spacer', { size: '16' }),
       );
@@ -251,10 +344,20 @@
     ].filter(([, waarde]) => waarde);
     const contact = [];
     if (pool.email) contact.push(maak('nldd-link', { href: `mailto:${pool.email}`, text: pool.email, size: 'sm' }));
-    if (pool.contactpagina) contact.push(maak('nldd-link', { href: pool.contactpagina, text: 'Contactpagina', size: 'sm' }));
+    // Een externe site: opent in een nieuw tabblad, zodat de Digipoolkaart open blijft.
+    // nldd-link meldt dat zelf aan schermlezers; het icoon laat het ook zien.
+    if (pool.contactpagina) {
+      contact.push(maak('nldd-link', {
+        href: pool.contactpagina,
+        target: '_blank',
+        text: 'Contactpagina',
+        'end-icon': 'external-link',
+        size: 'sm',
+      }));
+    }
     if (pool.telefoon) contact.push(tekst(pool.telefoon));
     // Contactpersonen onder de algemene gegevens: naam en rol, e-mail, telefoon.
-    for (const persoon of pool.contactpersonen ?? []) {
+    for (const persoon of pool.contactpersonen) {
       if (contact.length) contact.push(maak('nldd-spacer', { size: '8' }));
       contact.push(tekst(persoon.rol ? `${persoon.naam}, ${persoon.rol}` : persoon.naam));
       if (persoon.email) contact.push(maak('nldd-link', { href: `mailto:${persoon.email}`, text: persoon.email, size: 'sm' }));

@@ -1,0 +1,567 @@
+[
+  {
+    "naam": "Rijks ICT Gilde",
+    "organisatie": "Rijksorganisatie ODI, ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "data",
+      "ai",
+      "software",
+      "security"
+    ],
+    "omschrijving": "Rijksbreed opererende pool die technische expertise en advies biedt, uitgevoerd door projectmatig inzetbare tech consultants met expertise op data-, AI-, software- en security-vraagstukken.",
+    "expertise": "Data, AI, software, security",
+    "omvang": "75 tech consultants IT/Data/AI",
+    "doelgroep": "Rijksorganisaties binnen heel Nederland",
+    "governance": "Onderdeel van Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (ODI), onderdeel van het ministerie van BZK",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "email": "RIG@rijksoverheid.nl",
+    "telefoon": "088 – 37 13 123",
+    "website": "https://www.rijksorganisatieodi.nl/rijks-ict-gilde/het-rig-inzetten"
+  },
+  {
+    "naam": "I-Interim Rijk",
+    "organisatie": "Rijksorganisatie ODI, ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "projecten",
+      "architectuur",
+      "informatie"
+    ],
+    "omschrijving": "Rijksbreed opererende interim- en adviesclub die interim-opdrachten uitvoert op het gebied van strategisch I-advies, I-project- en programmamanagement, I-architectuur en I-lijnmanagement.",
+    "expertise": "Strategisch I-advies, project- en programmamanagement, architectuur, lijnmanagement",
+    "omvang": "200 programma-/projectmanagers, architecten en lijnmanagers",
+    "doelgroep": "Rijksorganisaties binnen heel Nederland",
+    "governance": "Onderdeel van Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (ODI), onderdeel van het ministerie van BZK",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "email": "I-Interimrijk@rijksoverheid.nl",
+    "telefoon": "070 - 700 05 50",
+    "website": "https://www.rijksorganisatieodi.nl/i-interim-rijk/onze-diensten"
+  },
+  {
+    "naam": "CIO Flex",
+    "organisatie": "Rijksorganisatie ODI, ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "informatie"
+    ],
+    "omschrijving": "Netwerk van creatieve I-adviseurs die CIO-offices helpen met het bedenken van I-oplossingen en de implementatie daarvan.",
+    "expertise": "Informatievoorziening (IV), informatietechnologie (ICT) en digitale transformatie",
+    "omvang": "25 fte",
+    "doelgroep": "CIO-offices binnen het Rijk",
+    "governance": "Onderdeel van Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (ODI), onderdeel van het ministerie van BZK",
+    "financiering": "Opdrachten in het kader van de kaderstellende rol van de CIO Rijk: budgetgefinancierd. I-advies: op basis van offertes/tarieven",
+    "email": "CIO-flexpool@rijksoverheid.nl",
+    "website": "https://www.rijksorganisatieodi.nl/i-interim-rijk/onze-diensten/overzicht-diensten-en-producten/cio-flex"
+  },
+  {
+    "naam": "Rijks I-Traineeship",
+    "organisatie": "Rijksorganisatie ODI, ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "data",
+      "security",
+      "software"
+    ],
+    "omschrijving": "Pool van afgestudeerd I-talent. Startende professionals voeren in 2 jaar tijd 3 opdrachten uit van 8 maanden bij verschillende rijksorganisaties.",
+    "expertise": "Overheidsmedewerkers in 3 tracks: ICT, Data of Cyber Security",
+    "omvang": "150 trainees per 2 jaar (elk jaar starten 75 nieuwe trainees)",
+    "doelgroep": "Rijksorganisaties binnen heel Nederland",
+    "governance": "Onderdeel van Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (ODI), onderdeel van het ministerie van BZK",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "email": "rijksitraineeship@rijksoverheid.nl",
+    "website": "https://www.rijksorganisatieodi.nl/rijks-i-traineeship"
+  },
+  {
+    "naam": "DICTU",
+    "organisatie": "Agentschap van het ministerie van EZK",
+    "plaatsen": [
+      "den-haag",
+      "assen",
+      "zwolle"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "software",
+      "beheer"
+    ],
+    "omschrijving": "Levert ICT-diensten voor de Rijksoverheid door het ontwikkelen en beheren van systemen en applicaties en de bijbehorende dienstverlening.",
+    "expertise": "ICT-uitvoeringsorganisatie: ontwikkeling en beheer van websites, apps, digitale werkplekken en applicaties op het gebied van subsidies, inspecties en registers",
+    "omvang": "1700 ICT-professionals",
+    "doelgroep": "EZK en LVVN; ook diensten verlenend voor andere ministeries",
+    "governance": "Baten-lastenagentschap binnen de Rijksoverheid, waarbij de organisatie valt onder de verantwoordelijkheid van EZK",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "telefoon": "(070) 37 98 911",
+    "contactpagina": "https://www.dictu.nl/contact",
+    "website": "https://www.dictu.nl/diensten"
+  },
+  {
+    "naam": "ICTU",
+    "organisatie": "Overheidsstichting van BZK en VNG",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "projecten",
+      "software",
+      "informatie"
+    ],
+    "omschrijving": "Adviseert, realiseert en begeleidt projecten en programma’s op het gebied van digitale overheid.",
+    "expertise": "Brede ICT-ondersteuning",
+    "omvang": "Rond 180 vaste medewerkers, aangevuld met een flexibele schil van externe professionals (1/3 intern, 2/3 extern)",
+    "doelgroep": "Overheidsorganisaties en publieke instellingen",
+    "governance": "Overheidsstichting, opgericht door het ministerie van BZK en de VNG als een onafhankelijke advies- en projectenorganisatie voor de overheid",
+    "financiering": "Werkt zonder winstoogmerk en wordt gefinancierd vanuit opdrachten van verschillende overheidsorganisaties",
+    "email": "info@ictu.nl",
+    "telefoon": "070 - 70 00 900",
+    "website": "https://www.ictu.nl/diensten/dienstenoverzicht/"
+  },
+  {
+    "naam": "Mobiliteitscentrum West-Brabant",
+    "organisatie": "Gemeenschappelijke Regeling van 16 gemeenten",
+    "plaatsen": [
+      "etten-leur"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "projecten",
+      "data",
+      "ai",
+      "software",
+      "security"
+    ],
+    "omschrijving": "Flexpool van breed inzetbare project- en programmamanagers, ook op digitalisering.",
+    "expertise": "Inzet op verschillende vragen op data-, AI-, software- en security-gebied",
+    "omvang": "Flexpool van 40 fte beschikbaar voor de aangesloten organisaties, waarvan 5 fte voor I-opdrachten",
+    "doelgroep": "Aangesloten gemeenten in West-Brabant",
+    "governance": "Flexpool is bovenop de reguliere organisatie geplaatst. Werkt met een Gemeenschappelijke Regeling waarbij 16 risicodragende gemeenten als eigenaar zijn aangesloten",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "email": "secretariaatmobiliteitscentrum@west-brabant.eu",
+    "telefoon": "06 25 32 00 96",
+    "website": "https://www.werkeninwestbrabant.nl/"
+  },
+  {
+    "naam": "SSC-ICT",
+    "organisatie": "DGVBR, ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "beheer",
+      "security"
+    ],
+    "omschrijving": "Shared Service Center-ICT: centrale eenheid binnen de Rijksoverheid die IT-diensten levert aan andere delen van het Rijk.",
+    "expertise": "ICT-uitvoeringsorganisatie: onder andere overheidsdatacenter voor de veilige opslag van data, beheer van applicaties voor de primaire processen van departementen, IT-voorzieningen voor rijksambtenaren en -panden, de Digitale Werkomgeving Rijk (DWR)",
+    "omvang": "1600 medewerkers, veelal in functie van applicatiebeheer, security en test engineers, technisch specialisten",
+    "doelgroep": "Ministeries van BZK, BZ, Fin, I&W, J&V, SZW, VWS",
+    "governance": "Onderdeel van DGVBR van BZK, functioneert als baten-lastendienst",
+    "financiering": "Baten-lastendienst, werkt met een eigen baten- en lastenstelsel en een eigen vermogen. De kosten van geleverde IT-diensten worden doorberekend aan afnemers",
+    "email": "ssc-ict@minbzk.nl",
+    "website": "https://www.ssc-ict.nl/onze-dienstverlening"
+  },
+  {
+    "naam": "Justitiële ICT Organisatie (JIO)",
+    "organisatie": "Agentschap van het ministerie van J&V",
+    "plaatsen": [
+      "gouda",
+      "soesterberg",
+      "veenhuizen"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "software",
+      "beheer",
+      "security"
+    ],
+    "omschrijving": "ICT-dienstverlener voor het ministerie van J&V.",
+    "expertise": "ICT-uitvoeringsorganisatie: zorgt voor hard- en software op werkplekken: op maat gemaakte apps, systemen en applicaties, veilige cloudomgevingen",
+    "omvang": "Intern 650 medewerkers en als externe inzet 100 à 150 medewerkers",
+    "doelgroep": "Organisaties van het ministerie van J&V, onder andere DJI, de Raad voor de Kinderbescherming, de IND, de Dienst Terugkeer en Vertrek, Reclassering Nederland en de dienst Justis",
+    "governance": "Functioneert als een baten-lastenagentschap onder het ministerie van J&V",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "contact@jio.nl",
+    "telefoon": "088 07 57 100",
+    "website": "https://www.justitieleictorganisatie.nl/"
+  },
+  {
+    "naam": "Vakgroep APP",
+    "organisatie": "Gemeente Amsterdam",
+    "plaatsen": [
+      "amsterdam"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "projecten",
+      "software"
+    ],
+    "omschrijving": "Agile ontwikkeling en I-project- en programmamanagement voor de gemeente Amsterdam.",
+    "expertise": "Agile projecten, interim project- en programmamanagement voor digitaliseringsvraagstukken",
+    "omvang": "160 medewerkers",
+    "doelgroep": "Gemeente Amsterdam",
+    "governance": "Functioneert als een interne baten-lastendienst voor de gemeente Amsterdam",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen. Er wordt gestuurd op kostendekkendheid",
+    "telefoon": "06 25 18 59 98",
+    "contactpagina": "https://intranet.amsterdam.nl/kennis-beleid/bedrijfsvoering/informatie/expertisepools/project-en-programma/"
+  },
+  {
+    "naam": "HUB NVWA",
+    "organisatie": "Nederlandse Voedsel- en Warenautoriteit",
+    "plaatsen": [
+      "utrecht"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "data",
+      "ai",
+      "projecten"
+    ],
+    "omschrijving": "I-project- en programmamanagement.",
+    "expertise": "Data en AI",
+    "omvang": "30 medewerkers, groeiend naar 60 tot 80 medewerkers",
+    "doelgroep": "NVWA",
+    "governance": "Onderdeel van de NVWA, ministerie van LVVN. Werkt in opdracht van de ministeries van VWS en LVVN",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen"
+  },
+  {
+    "naam": "Rijksorganisatie voor Informatiehuishouding (RvIHH)",
+    "organisatie": "Rijksorganisatie voor Informatiehuishouding, ministerie van BZK",
+    "plaatsen": [
+      "den-haag",
+      "rijswijk",
+      "apeldoorn",
+      "winschoten"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "informatie",
+      "data",
+      "ai",
+      "projecten"
+    ],
+    "omschrijving": "Helpt overheidsorganisaties hun informatiehuishouding toekomstbestendig te maken met advies op maat over wet- en regelgeving (o.a. Archiefwet, AVG), technologie (AI, automatisering, duurzame IT), een mensgerichte aanpak en verbinding tussen beleid, uitvoering en IT, inclusief kennisdeling ten behoeve van zelfstandigheid van de zorgdragers.",
+    "expertise": "Informatiehuishouding, data, AI, Archiefwet, Woo, AVG, DMS, recordmanagement, opschonen netwerkschijven, trainingen, verandermanagement, procesontwerp, selectielijst, projecten",
+    "omvang": "500 medewerkers, waarvan 80 adviseurs",
+    "doelgroep": "Rijksoverheid, Hoge Colleges van Staat, uitvoeringsorganisaties, zbo’s, agentschappen",
+    "governance": "Onderdeel van DGVBR van BZK, functioneert als een baten-lastendienst",
+    "financiering": "Heeft een eigen begroting. Opdrachten worden conform de Producten- en Dienstencatalogus uitgevoerd op basis van offertes/tarieven",
+    "email": "RvIHH.Advies@minbzk.nl",
+    "website": "https://www.rvihh.nl/advies"
+  },
+  {
+    "naam": "RVO – Project- en Agile management",
+    "organisatie": "Rijksdienst voor Ondernemend Nederland",
+    "plaatsen": [
+      "den-haag",
+      "utrecht",
+      "assen",
+      "zwolle",
+      "roermond"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "projecten",
+      "informatie"
+    ],
+    "omschrijving": "Levert project- en agilemanagementexpertise binnen het IV-domein (informatievoorziening) met projectmanagers, programmamanagers, RTE’s, scrum masters en agile coaches. Helpt projecten en teams hun doelen te bereiken, begeleidt de samenwerking en zorgt voor structuur, richting en voortgang.",
+    "expertise": "Agile/SAFe-management en -coaching, agile/SAFe-transformatie, project- en programmamanagement, Release Train Engineering (RTE), Scrum en Scrum Mastery",
+    "omvang": "60 professionals, inclusief een flexibele schil",
+    "doelgroep": "RVO, onderdeel van de Rijksoverheid. Afhankelijk van de opdracht ook interdepartementaal en internationaal",
+    "governance": "Interne expertisepool binnen RVO. Levert project- en agilemanagementprofessionals aan verschillende afdelingen en epics/projecten binnen het IV-domein. De inzet van de professionals wordt afgestemd op de behoefte en prioriteiten binnen de organisatie",
+    "financiering": "Interne verrekening van inzet",
+    "contactpersonen": [
+      {
+        "naam": "Rogier de Graaf",
+        "rol": "manager",
+        "email": "Rogier.degraaf@rvo.nl",
+        "telefoon": "06 25 70 84 63"
+      }
+    ]
+  },
+  {
+    "naam": "ODC-Noord",
+    "organisatie": "SSO-Noord, DUO, ministerie van OCW",
+    "plaatsen": [
+      "groningen"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "beheer"
+    ],
+    "omschrijving": "Een van de vier landelijke rijksdatacenters, kenniscentrum op het gebied van datacenter- en IT-diensten. Biedt IT-housing-, infrastructuur-, platform- en back-updiensten.",
+    "expertise": "Gestandaardiseerde, schaalbare en duurzame clouddiensten",
+    "omvang": "150 medewerkers",
+    "doelgroep": "Werkt landelijk voor alle rijksorganisaties; afnemers en opdrachtgevers werken bij verschillende ministeries",
+    "governance": "Onderdeel van SSO-Noord (Shared Service Organisatie Noord), organisatieonderdeel van DUO (Dienst Uitvoering Onderwijs) van het ministerie van OCW",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "info@odc-noord.nl",
+    "telefoon": "088 4247684",
+    "website": "https://www.odc-noord.nl/diensten"
+  },
+  {
+    "naam": "IT Platform Twente",
+    "organisatie": "Samenwerkingsverband van gemeenten in Twente",
+    "plaatsen": [
+      "enschede"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "security",
+      "data",
+      "ai",
+      "beheer"
+    ],
+    "omschrijving": "Gezamenlijk IT-samenwerkingsverband voor en door gemeentelijke organisaties en gemeenschappelijke regelingen in de regio Twente. Bundelt ICT-activiteiten van 12 gemeenten en 3 gemeenschappelijke regelingen (waaronder de Veiligheidsregio Twente) om slimmer, transparanter en kostenefficiënter te werken.",
+    "expertise": "Informatiebeveiliging, privacy, AI-geletterdheid, datakwaliteit en de migratie van applicaties naar landelijke infrastructuren",
+    "omvang": "10 medewerkers",
+    "doelgroep": "Gemeenten in Twente",
+    "governance": "Samenwerkingsverband tussen gemeenten, veiligheidsregio en belastingkantoor. Medewerkers voeren vanuit verschillende overheidsorganisaties projecten uit bij aangesloten organisaties in Twente. Werkt met 4 gemeenschappelijke regelingen; daarbinnen kunnen losse coalities worden gevormd. Onder de vlag van de gemeente Enschede (gastheerconstructie)",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "team@itplatformtwente.nl",
+    "website": "https://www.linkedin.com/company/itplatformtwente/about/"
+  },
+  {
+    "naam": "BRIT (Brabant IT)",
+    "organisatie": "Provincie Noord-Brabant en gemeenten Oss, Eindhoven en Helmond",
+    "plaatsen": [
+      "eindhoven"
+    ],
+    "organisaties": [
+      "provincies",
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "data",
+      "projecten"
+    ],
+    "omschrijving": "Breed inzetbare data- en IT-adviseurs binnen het samenwerkingsverband tussen de provincie Noord-Brabant en de gemeenten Oss, Eindhoven en Helmond.",
+    "expertise": "Data/IT-adviseurs, I-projectmanagement",
+    "omvang": "6 medewerkers",
+    "doelgroep": "Gemeenten Oss, Eindhoven, Helmond, provincie Noord-Brabant",
+    "governance": "Samenwerkingsverband tussen provincie en gemeenten. Medewerkers voeren vanuit verschillende overheidsorganisaties projecten uit bij (semi)overheidsinstellingen in Brabant",
+    "financiering": "Opdrachten worden uitgevoerd op basis van offertes/tarieven",
+    "contactpagina": "https://www.britconsultants.nl/contact-2/",
+    "website": "https://www.britconsultants.nl/"
+  },
+  {
+    "naam": "DeSom",
+    "organisatie": "Shared Service Center van zes West-Friese gemeenten",
+    "plaatsen": [
+      "hoorn"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "beheer",
+      "projecten",
+      "informatie"
+    ],
+    "omschrijving": "ICT-uitvoeringsorganisatie.",
+    "expertise": "Technisch beheer, I-projecten en I-advies, aanbesteding van ICT-inkoop, beheer en onderhoud van ICT-infrastructuur",
+    "omvang": "40 ICT-professionals",
+    "doelgroep": "6 gemeenten in West-Friesland: Stede Broec, Enkhuizen, Drechterland, Medemblik, Koggenland, Opmeer",
+    "governance": "Shared Service Center met een gemeenschappelijke regeling. Elke gemeente is vertegenwoordigd in het algemeen bestuur; 3 afgevaardigden hiervan vormen het dagelijks bestuur",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "info@sscdesom.nl",
+    "telefoon": "0229-856666",
+    "website": "https://www.sscdesom.nl/"
+  },
+  {
+    "naam": "Logius",
+    "organisatie": "Agentschap van het ministerie van BZK",
+    "plaatsen": [
+      "den-haag"
+    ],
+    "organisaties": [
+      "rijksoverheid"
+    ],
+    "vakgebieden": [
+      "software",
+      "beheer",
+      "architectuur"
+    ],
+    "omschrijving": "Ontwikkelt en beheert producten en diensten voor de digitale overheid. Beheert standaarden die alle overheidsorganisaties gebruiken in hun digitale dienstverlening. Is betrokken bij meerdere afsprakenstelsels.",
+    "expertise": "Digitale diensten als DigiD, Digipoort, MijnOverheid",
+    "omvang": "485 fte",
+    "doelgroep": "Rijksorganisaties binnen heel Nederland",
+    "governance": "Agentschap van het ministerie van BZK",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "contactpagina": "https://www.logius.nl/contact",
+    "website": "https://www.logius.nl/onze-dienstverlening"
+  },
+  {
+    "naam": "DUO Project- en Programmamanagement",
+    "organisatie": "Dienst Uitvoering Onderwijs, ministerie van OCW",
+    "plaatsen": [
+      "groningen",
+      "den-haag"
+    ],
+    "organisaties": [
+      "overheidsbreed"
+    ],
+    "vakgebieden": [
+      "projecten"
+    ],
+    "omschrijving": "Levert sturingscapaciteit op de complexe veranderingen binnen de organisatie. Wisselt capaciteit uit met partijen die aangesloten zijn bij het SPO-netwerk (Samenwerking Projectmanagement Overheid) en de noordelijke semi-overheidspartijen (Samenwerking Rijk Noord-Nederland, Samenwerking Noord).",
+    "expertise": "Project- en programmamanagement in het business- en ICT-domein. Interimmanagement, verandermanagement en tijdelijke agile rollen (productmanager, VMO, epic owner)",
+    "omvang": "71 fte interne medewerkers en een externe schil van 30 fte. De externe schil is in 2026 fors verkleind",
+    "doelgroep": "Rijk en overheidsbreed, business (tactisch/strategisch), ketenpartijen (buiten DUO), ICT-projecten",
+    "governance": "Flexpool (detachering via het model Rijk, maar ook detacheringen bij andere overheden)",
+    "financiering": "Budget is afhankelijk van het jaarlijkse portfoliobudget (OCW-gelden)",
+    "email": "Resourcemgt_PPM@duo.nl",
+    "contactpersonen": [
+      {
+        "naam": "Nicole Baard",
+        "rol": "manager DUO PPM",
+        "email": "nicole.baard@duo.nl",
+        "telefoon": "06 15 04 84 31"
+      },
+      {
+        "naam": "Henriette Meems",
+        "rol": "resourcemanager DUO PPM",
+        "email": "henriette.meems@duo.nl",
+        "telefoon": "06 41 96 87 09"
+      }
+    ]
+  },
+  {
+    "naam": "Het Waterschapshuis",
+    "organisatie": "Gemeenschappelijke Regeling van 21 waterschappen",
+    "plaatsen": [
+      "amersfoort"
+    ],
+    "organisaties": [
+      "waterschappen"
+    ],
+    "vakgebieden": [
+      "data",
+      "projecten"
+    ],
+    "omschrijving": "Regie- en uitvoeringsorganisatie voor de 21 waterschappen op het gebied van informatie- en communicatietechnologie.",
+    "expertise": "Data/IT-advies, I-projectmanagement",
+    "omvang": "42 fte (elk waterschap levert 2 fte)",
+    "doelgroep": "21 waterschappen",
+    "governance": "Gemeenschappelijke Regeling, opgesteld door 21 waterschappen. Elk waterschap levert medewerkers. Op de projecten werken gedetacheerde waterschappers vanuit het hele land. Zij vormen de nationale teams en zorgen voor een wisselwerking: zij brengen unieke kennis en ervaring in bij hWh en nemen waardevolle kennis en ervaring mee terug naar hun eigen organisatie",
+    "financiering": "Onderlinge detachering en verrekening van inzet",
+    "email": "servicedesk@hetwaterschapshuis.nl",
+    "telefoon": "033 460 3100",
+    "website": "https://www.hetwaterschapshuis.nl/"
+  },
+  {
+    "naam": "Equalit",
+    "organisatie": "Samenwerkingsverband van 12 gemeenten",
+    "plaatsen": [
+      "oosterhout"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "beheer",
+      "projecten",
+      "informatie"
+    ],
+    "omschrijving": "ICT-samenwerkingsverband. Bundelt ICT-activiteiten van 12 gemeenten.",
+    "expertise": "Technisch beheer, I-projecten en I-advies, aanbesteding van ICT-inkoop, beheer en onderhoud van ICT-infrastructuur",
+    "omvang": "100 ICT-professionals",
+    "doelgroep": "12 gemeenten in de regio Noord-Brabant",
+    "governance": "Samenwerkingsverband tussen 12 gemeenten. Medewerkers voeren projecten uit bij aangesloten gemeenten",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "servicedesk@equalit.nl",
+    "telefoon": "0162 48 93 45",
+    "website": "https://equalit.nl/"
+  },
+  {
+    "naam": "ICT West-Brabant West",
+    "organisatie": "Samenwerkingsverband van 5 overheidsorganisaties",
+    "plaatsen": [
+      "zevenbergen"
+    ],
+    "organisaties": [
+      "gemeente"
+    ],
+    "vakgebieden": [
+      "beheer",
+      "projecten",
+      "informatie"
+    ],
+    "omschrijving": "ICT-samenwerkingsverband. Bundelt ICT-activiteiten van 5 overheidsorganisaties.",
+    "expertise": "Technisch beheer, I-projecten en I-advies, aanbesteding van ICT-inkoop, beheer en onderhoud van ICT-infrastructuur",
+    "omvang": "10 ICT-professionals",
+    "doelgroep": "5 aangesloten overheidsorganisaties in West-Brabant",
+    "governance": "Samenwerkingsverband tussen 5 overheidsorganisaties. Medewerkers voeren projecten uit bij aangesloten gemeenten",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "email": "info@ictwbw.nl",
+    "telefoon": "+31 88 99 60 400",
+    "website": "https://www.ictwbw.nl/"
+  },
+  {
+    "naam": "ONS",
+    "organisatie": "Shared Service Center in de regio Zwolle",
+    "plaatsen": [
+      "zwolle"
+    ],
+    "organisaties": [
+      "gemeente",
+      "provincies"
+    ],
+    "vakgebieden": [
+      "beheer",
+      "projecten",
+      "informatie"
+    ],
+    "omschrijving": "Shared Service Center. Levert bedrijfsvoeringsoplossingen op ICT, inkoop en HR aan overheidsorganisaties in de regio Zwolle.",
+    "expertise": "Technisch beheer, I-projecten en I-advies, aanbesteding van ICT-inkoop, beheer en onderhoud van ICT-infrastructuur",
+    "omvang": "10 ICT-professionals",
+    "doelgroep": "Provincie en gemeenten in de regio Zwolle",
+    "governance": "SSC. Organisaties treden toe als partner en werken dan met afspraken rondom de dienstverlening in een Service Level Agreement (SLA) en een Producten- en Dienstencatalogus (PDC)",
+    "financiering": "Kosten worden doorberekend aan de interne klanten die diensten afnemen",
+    "telefoon": "088 – 102 7100",
+    "contactpagina": "https://www.ssc-ons.nl/contact/",
+    "website": "https://www.ssc-ons.nl/"
+  }
+]
